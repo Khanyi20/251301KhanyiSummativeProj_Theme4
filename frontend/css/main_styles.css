@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "GROBOLD";
+  font-style: normal;
+  font-weight: 400;
+  src:
+    local("GROBOLD"),
+    url("/fonts/GROBOLD.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Futura";
+  src:
+    local("Futura"),
+    local("Futura Regular"),
+    url("/fonts/Futura-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}

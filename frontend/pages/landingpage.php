@@ -4,6 +4,8 @@ session_start();
 
 require __DIR__ . '/../../backend/database/db.php';
 
+require __DIR__ . '/frontend/index.php';
+
 ?>
 
 <!DOCTYPE html>

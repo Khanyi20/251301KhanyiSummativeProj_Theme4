@@ -66,5 +66,5 @@ jobs:
         with:
           app-name: 'pawsitive'
           slot-name: 'Production'
-          package: ./frontend
+          package: .
           

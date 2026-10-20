@@ -11,21 +11,21 @@ require __DIR__ . '/../../backend/database/db.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main_styles.css">
+    <link rel="stylesheet" href="/frontend/css/main_styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Document</title>
 </head>
 <body>
 
-    <div
+    <div>
         <nav class="landing-nav">
 
             <div class="topnav" id="myTopnav">
                 <a href="#home" class="active">Home</a>
                 
-                <a href="#contact">Donate</a>
-                <a href="#about">Sign In</a>
-                <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+                <a href="/frontend/pages/donate.php">Donate</a>
+                <a href="/frontend/pages/signin.php">Sign In</a>
+                <a href="Javascript:void(0);" class="icon" onclick="myFunction()">
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
@@ -40,10 +40,10 @@ require __DIR__ . '/../../backend/database/db.php';
             <div class="landingpage-content">
                 <h1>Welcome to Pawsitive</h1>
                 <p>We are a non-profit organization dedicated to helping animals in need. Our mission is to provide shelter, food, and medical care to abandoned and abused animals, while also promoting responsible pet ownership and animal welfare.</p>
-                <button class="donatebtn"><a href="../pages/donate.php" class="donate-button">Donate Now</a></button>
+                <button class="donatebtn"><a href="/frontend/pages/donate.php" class="donate-button">Donate Now</a></button>
             </div>
             <div class="landingpage-image">
-                <img src="../assets/section1_img.png" alt="Landing Page Image">
+                <img src="/frontend/assets/section1_img.png" alt="Landing Page Image">
             </div>
         </section>   
         
@@ -57,7 +57,7 @@ require __DIR__ . '/../../backend/database/db.php';
             </div>
             
         </section>
-
-    <script src="../Javascript/script.js"></script>    
+    </div>
+    <script src="/frontend/Javascript/script.js"></script>    
 </body>
 </html>

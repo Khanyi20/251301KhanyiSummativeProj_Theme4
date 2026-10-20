@@ -14,7 +14,7 @@
 }
 
 
-@font-face {
+/* @font-face {
   font-family: "GROBOLD";
   font-style: normal;
   font-weight: 400;
@@ -32,7 +32,7 @@
     url("/fonts/Futura-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
-}
+} */
 
 /* .landing-nav {
   width: 100%;

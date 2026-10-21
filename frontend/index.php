@@ -1,4 +1,4 @@
 <?php
-require __DIR__ . '/pages/landingpage.php';
+require __DIR__ . '/frontend/pages/landingpage.php';
 
 ?>

@@ -53,6 +53,8 @@ body {
   color: #292727;
   background-color: #FFFAF6;
   overflow: hidden;
+  overflow-y: auto;     
+  overflow-x: hidden;
 }
 
 /* Top Navigation */
@@ -147,8 +149,8 @@ body {
   justify-content: space-between;
   padding: 0 20px;
   
-  width: 100%;
-  height: 100vh;
+  /* width: 100%;
+  height: 100vh; */
 }
 
 .landingpage-content {
@@ -197,8 +199,8 @@ body {
   justify-content: center;
   padding: 0 20px;
   
-  width: 100%;
-  height: 100vh;
+  /* width: 100%;
+  height: 100vh; */
  
 }
 
@@ -216,8 +218,8 @@ body {
   justify-content: center;
   padding: 0 20px;
   
-  width: 100%;
-  height: 100vh;
+  /* width: 100%;
+  height: 100vh; */
  
 }
 

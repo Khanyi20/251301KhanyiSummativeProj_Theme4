@@ -166,8 +166,13 @@ session_start();
                 </div>
                 
             </div>
-        </section>    
-
+        </section>
+        
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2023 Pawsitive. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
     <script src="/frontend/Javascript/script.js"></script>    
 </body>

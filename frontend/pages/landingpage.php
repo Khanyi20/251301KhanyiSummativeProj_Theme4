@@ -17,10 +17,14 @@ session_start();
 </head>
 <body>
 
-    <div>
-        <nav class="landing-nav">
+    <header class="hero-section">
 
-            <div class="topnav" id="myTopnav">
+        <div class="hero-background"></div>
+
+        <nav class="landing-nav"><!-- nav-bar -->
+            <div class="logo"><img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Logo"></div>
+
+            <div class="topnav" id="myTopnav"><!-- nav-links -->
                 <a href="#home" class="active">Home</a>
                 
                 <a href="/frontend/pages/donate.php">Donate</a>
@@ -29,23 +33,20 @@ session_start();
                     <i class="fa fa-bars"></i>
                 </a>
             </div>
-
-
-        <!-- 
-        <button>Donate</button>
-        <button>SignIn</button> -->
         </nav>
 
-        <section class="landingpage">
+        <section class="landingpage"><!-- hero-content -->
             <div class="landingpage-content">
                 <h1>Welcome to Pawsitive</h1>
                 <p>We are a non-profit organization dedicated to helping animals in need. Our mission is to provide shelter, food, and medical care to abandoned and abused animals, while also promoting responsible pet ownership and animal welfare.</p>
-                <button class="donatebtn"><a href="/frontend/pages/donate.php" class="donate-button">Donate Now</a></button>
+                <button class="donatebtn"><!-- cta-button -->
+                    <a href="/frontend/pages/donate.php" class="donate-button">Donate Now</a>
+                </button>
             </div>
-            <div class="landingpage-image">
-                <img src="/frontend/assets/section1_img.png" alt="Landing Page Image">
-            </div>
-        </section>   
+            
+        </section> 
+        </header>
+        
         
         <section class="section2">
             <div class="section2-content">
@@ -173,7 +174,7 @@ session_start();
                 <p>&copy; 2023 Pawsitive. All rights reserved.</p>
             </div>
         </footer>
-    </div>
+    
     <script src="/frontend/Javascript/script.js"></script>    
 </body>
 </html>

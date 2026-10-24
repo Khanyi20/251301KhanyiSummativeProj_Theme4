@@ -19,7 +19,7 @@ session_start();
 
     <header class="hero-section">
 
-        <div class="hero-background"></div>
+        <div class="hero-background"><img src="/frontend/assets/section1_img.png" alt="Hero Image"></div>
 
         <nav class="landing-nav"><!-- nav-bar -->
             <div class="logo"><img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Logo"></div>

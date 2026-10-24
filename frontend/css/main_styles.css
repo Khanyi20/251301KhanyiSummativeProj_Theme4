@@ -11,6 +11,7 @@
   --blush-pink: #F8E8E7;
   --charcoal: #292727;
   --warm-cream: #FFFAF6;
+  --warm-red: #B04747;
 }
 
 
@@ -61,92 +62,96 @@ body {
 
 
 .hero-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      
-      /* Make image cover the whole page */
-      background-image:url(/frontend/assets/section1_img.png); /* Replace with your image path */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      
-      z-index: -1; /* Keeps it behind your text content */
+  position: relative;
+  display: inline-block;
+  }
 
-      /* 2. The Scroll Animation */
-      animation: fadeOut linear both;
-      animation-timeline: scroll(root); /* Links animation to the page scroll */
-      animation-range: exit 0% exit 100%; /* Fades out over the height of the first section */
-    }
+.hero-background img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  opacity: 0.8; /* Adjust the opacity for a subtle effect */
+  transition: opacity 0.5s ease-in-out; /* Smooth transition for hover effect */
 
- /* Define the fade-out effect */
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-      }
-    }
+ 
+} 
+
+/* The fading overlay */
+.hero-background::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 150px; /* Adjust this to control how tall the fade is */
+  
+  /* Change #ffffff to match your actual website background color */
+  background: linear-gradient(to top, #ffffff, transparent); 
+}
+ 
 
 /* Top Navigation */
 
 
 .landing-nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1100px;
+  height: 70px;
+  padding: 0 25px;
+
+  /* Glassmorphism styling */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px); /* Safari support */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Thin subtle border */
+  border-radius: 50px; /* Rounded pill look */
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+  
+  /* Flexbox for proper internal alignment */
   display: flex;
-    justify-content: flex-end; 
-    gap: 20px;
-    align-items:end;     
-    
-    max-width: 95%;        
-    margin: 5px auto;   
-    margin-top: 20px;       
-    padding: 10px 10px;  
-    padding-top: 20px;  
-    background-color: var(--charcoal);  
-    border-radius: 12px; 
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
 }
 
 
-/* Add a black background color to the top navigation */
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  height: 38px; /* Proper proportional logo size */
+  width: auto;
+  object-fit: contain;
+}
+
 .topnav {
-  
-  overflow: hidden;
   display: flex;
-  justify-content: flex-end; /* Pushes everything to the far right */
-  gap: 20px;
-  padding: 10px 20px; /* Adjust padding as needed */
-  
-  
+  align-items: center;
+  list-style: none;
+  gap: 30px; /* Space between links */
+  margin: 0;
+  padding: 0;
 }
 
-/* Style the links inside the navigation bar */
 .topnav a {
-  float: left;
-  display: block;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
+  color: #fff; /* High contrast text for glass backgrounds */
   text-decoration: none;
-  font-size: 17px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
 }
 
-/* Change the color of links on hover */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+  opacity: 0.7; /* Subtle hover effect */
 }
-
-/* Add an active class to highlight the current page */
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
-
-/* Hide the link that should open and close the topnav on small screens */
-.topnav .icon {
-  display: none;
-}
-
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
 @media screen and (max-width: 600px) {
@@ -178,28 +183,30 @@ body {
   display: flex;
   align-items: center;
   /* justify-content: space-between; */
-  padding: 0 20px;
+  padding: 0 10px;
   
   height: 100vh;
   justify-content: center;
   align-items: center;
   text-align: center;
+  
 }
 
 .landingpage-content {
   padding-left: 30px;
   width: 30%;
+  color: var(--warm-cream);
 }
 
 .landingpage-content h1 {
-font-size: 3.5rem;
+font-size: 4rem;
 text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
 .donatebtn {
   width: 180px;
   height: 50px;
-  background-color: var(--brand-color);
+  background-color: var(--warm-red);
   color: var(--warm-cream);
   border: none;
   cursor: pointer;
@@ -246,15 +253,28 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   
   align-items: center;
   justify-content: center;
- 
   
   min-height: 100vh;
   background-color: #111; /* Solid background color for the next section */
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
-  
- 
+  background-image: url('/frontend/assets/pawframe1.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 400px;
+}
+
+.section2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.1));
+  z-index: -1; /* Ensure the gradient is behind the content */
 }
 
 .section2-content {
@@ -303,8 +323,7 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   justify-content: center;
   padding: 0 20px;
   
-  /* width: 100%;
-  height: 100vh; */
+  
  
 }
 

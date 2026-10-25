@@ -194,7 +194,7 @@ body {
     padding: 1rem 0;
   }
 
-  .topnav.responsive {
+  .topnav.active {
     display: flex;
   }
 
@@ -257,7 +257,7 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 
 
 /* Tablet Version (e.g., 768px and up) */
-@media (min-width: 768px) {
+@media (min-width: 600px) {
   .landingpage-content h1 {
     font-size: 2.5rem;
   }

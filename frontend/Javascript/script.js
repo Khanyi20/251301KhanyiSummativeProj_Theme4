@@ -1,17 +1,17 @@
 /* Toggle between adding and removing the "responsive" class to topnav when the user clicks on the icon */
-// function myFunction() {
-//   var x = document.getElementById("myTopnav");
-//   if (x.className === "topnav") {
-//     x.className += " responsive";
-//   } else {
-//     x.className = "topnav";
-//   }
-// }
-
 function myFunction() {
-  const myTopnav = document.getElementById("myTopnav");
-  myTopnav.classList.toggle("responsive");
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
 }
+
+// function myFunction() {
+//   const myTopnav = document.getElementById("myTopnav");
+//   myTopnav.classList.toggle("responsive");
+// }
 
 
 

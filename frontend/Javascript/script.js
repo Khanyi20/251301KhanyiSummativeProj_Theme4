@@ -10,7 +10,7 @@
 
 function myFunction() {
   const myTopnav = document.getElementById("myTopnav");
-  myTopnav.classList.toggle("active");
+  myTopnav.classList.toggle("responsive");
 }
 
 

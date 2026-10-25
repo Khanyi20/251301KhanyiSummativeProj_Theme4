@@ -194,7 +194,7 @@ body {
     padding: 1rem 0;
   }
 
-  .topnav.active {
+  .topnav.responsive {
     display: flex;
   }
 
@@ -258,8 +258,8 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 
 /* Tablet Version (e.g., 768px and up) */
 @media (min-width: 768px) {
-  .landingpage-content h2 {
-    font-size: 3rem;
+  .landingpage-content h1 {
+    font-size: 2.5rem;
   }
 
   .landingpage-content p {
@@ -269,7 +269,7 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 
 /* Desktop Version (e.g., 1024px and up) */
 @media (min-width: 1024px) {
-  .landingpage-content h2 {
+  .landingpage-content h1 {
     font-size: 3.75rem;
   }
 

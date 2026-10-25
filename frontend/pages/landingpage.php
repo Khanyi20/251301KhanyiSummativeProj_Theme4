@@ -116,13 +116,13 @@ session_start();
                     <h2>Directors</h2>
                     <div class="row">
                     <div class="column">
-                        <img src="/frontend/assets/staffimg1.png" alt="image 1" style="width:100%">
+                        <img src="/frontend/assets/staffimg1.png" alt="image 1" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg2.png" alt="image 2" style="width:100%">
+                        <img src="/frontend/assets/staffimg2.png" alt="image 2" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg6.png" alt="image 3" style="width:100%">
+                        <img src="/frontend/assets/staffimg6.png" alt="image 3" style="width:80%">
                     </div>
                     </div>
                 </div>
@@ -131,16 +131,16 @@ session_start();
                     <h2>Staff</h2>
                     <div class="row">
                     <div class="column">
-                        <img src="/frontend/assets/staffimg10.png" alt="image 4" style="width:100%">
+                        <img src="/frontend/assets/staffimg10.png" alt="image 4" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg9.png" alt="image 5" style="width:100%">
+                        <img src="/frontend/assets/staffimg9.png" alt="image 5" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg8.png" alt="image 6" style="width:100%">
+                        <img src="/frontend/assets/staffimg8.png" alt="image 6" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg7.png" alt="image 7" style="width:100%">
+                        <img src="/frontend/assets/staffimg7.png" alt="image 7" style="width:80%">
                     </div>
                     </div>
                 </div>
@@ -149,19 +149,19 @@ session_start();
                     <h2>Committee Members</h2>
                     <div class="row">
                     <div class="column">
-                        <img src="/frontend/assets/staffimg5.png" alt="image 8" style="width:100%">
+                        <img src="/frontend/assets/staffimg5.png" alt="image 8" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg4.png" alt="image 9" style="width:100%">
+                        <img src="/frontend/assets/staffimg4.png" alt="image 9" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg3.png" alt="image 10" style="width:100%">
+                        <img src="/frontend/assets/staffimg3.png" alt="image 10" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg1.png" alt="image 11" style="width:100%">
+                        <img src="/frontend/assets/staffimg1.png" alt="image 11" style="width:80%">
                     </div>
                     <div class="column">
-                        <img src="/frontend/assets/staffimg2.png" alt="image 12" style="width:100%">
+                        <img src="/frontend/assets/staffimg2.png" alt="image 12" style="width:80%">
                     </div>
                     </div>
                 </div>

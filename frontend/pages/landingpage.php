@@ -30,7 +30,7 @@ session_start();
                 <a href="/frontend/pages/donate.php">Donate</a>
                 <a href="/frontend/pages/signin.php">Sign In</a>
                 <a href="Javascript:void(0);" class="icon" onclick="myFunction()">
-                    <i class="fa fa-bars"></i>
+                    <i class="fa fa-bars"></i><!-- menu-icon -->  
                 </a>
             </div>
         </nav>

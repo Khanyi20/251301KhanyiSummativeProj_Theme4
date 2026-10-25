@@ -64,9 +64,8 @@ body {
 .hero-background {
   position: relative;
   display: inline-block;
-  }
 
-.hero-background img {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/frontend/assets/section1_img.png');
   width: 100%;
   height: auto;
   display: block;
@@ -74,7 +73,11 @@ body {
   opacity: 0.8; /* Adjust the opacity for a subtle effect */
   transition: opacity 0.5s ease-in-out; /* Smooth transition for hover effect */
 
- 
+ /* Position and center the image to scale nicely on all screens */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  
 } 
 
 /* The fading overlay */
@@ -99,9 +102,9 @@ body {
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
+  width: 98%;
   max-width: 1100px;
-  height: 70px;
+  height: 80px;
   padding: 0 25px;
 
   /* Glassmorphism styling */
@@ -138,19 +141,40 @@ body {
   gap: 30px; /* Space between links */
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 .topnav a {
   color: #fff; /* High contrast text for glass backgrounds */
   text-decoration: none;
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
+  
   font-weight: 500;
   transition: opacity 0.2s ease;
+
+  float: right;
+  display: block;
+  text-align: center;
+  padding: 14px 16px;
+  
+  font-size: 17px;
 }
 
 .topnav a:hover {
   opacity: 0.7; /* Subtle hover effect */
+  font-weight: bold;
+  font-size: 20px;
+  color: var(--warm-red);
+}
+
+.topnav a.active {
+  background-color: var(--warm-red);
+  color: var(--warm-cream);
+}
+
+/* Hide the link that should open and close the topnav on small screens */
+.topnav .icon {
+  display: none;
 }
 
 /* When the screen is less than 600 pixels wide, hide all links, except for the first one ("Home"). Show the link that contains should open and close the topnav (.icon) */
@@ -199,7 +223,7 @@ body {
 }
 
 .landingpage-content h1 {
-font-size: 4rem;
+font-size: 3.5rem;
 text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
 }
 
@@ -255,7 +279,7 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   justify-content: center;
   
   min-height: 100vh;
-  background-color: #111; /* Solid background color for the next section */
+  background-color: var(--charcoal); /* Solid background color for the next section */
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
@@ -266,7 +290,7 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   min-height: 400px;
 }
 
-.section2::before {
+.section2::after {
   content: "";
   position: absolute;
   top: 0;
@@ -281,6 +305,10 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
  padding: 20px;
  align-items: center;
  border: 3rem; 
+}
+
+.section2-content h2{
+  color: var(--warm-red);
 }
 
 .section2-content p {
@@ -321,9 +349,15 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   padding: 20px;
   align-items: center;
   justify-content: center;
-  padding: 0 20px;
-  
-  
+  padding: 20px 20px;
+ 
+}
+
+.section3-content {
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 20px;
  
 }
 
@@ -416,6 +450,21 @@ text-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   /* width: 100%;
   height: 100vh; */
  
+}
+
+.section4-content {
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  
+  /* width: 100%;
+  height: 100vh; */
+ 
+}
+
+.section4-content img {
+  border-radius: 50%;
 }
 
 /* Three image containers (use 25% for four, and 50% for two, etc) */

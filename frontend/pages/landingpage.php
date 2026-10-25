@@ -19,7 +19,7 @@ session_start();
 
     <header class="hero-section">
 
-        <div class="hero-background"><img src="/frontend/assets/section1_img.png" alt="Hero Image"></div>
+        <div class="hero-background">
 
         <nav class="landing-nav"><!-- nav-bar -->
             <div class="logo"><img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Logo"></div>
@@ -44,7 +44,7 @@ session_start();
                 </button>
             </div>
             
-        </section> 
+        </section> </div>
         </header>
         
         
@@ -110,10 +110,10 @@ session_start();
 
         <section class="section4">
             <div class="section4-content">
-                <h2>Our People</h2>
+                <h1>Our People</h1>
 
                 <div>
-                    <h3>Directors</h3>
+                    <h2>Directors</h2>
                     <div class="row">
                     <div class="column">
                         <img src="/frontend/assets/staffimg1.png" alt="image 1" style="width:100%">
@@ -128,7 +128,7 @@ session_start();
                 </div>
 
                 <div>
-                    <h3>Staff</h3>
+                    <h2>Staff</h2>
                     <div class="row">
                     <div class="column">
                         <img src="/frontend/assets/staffimg10.png" alt="image 4" style="width:100%">
@@ -146,7 +146,7 @@ session_start();
                 </div>
 
                 <div>
-                    <h3>Staff</h3>
+                    <h2>Committee Members</h2>
                     <div class="row">
                     <div class="column">
                         <img src="/frontend/assets/staffimg5.png" alt="image 8" style="width:100%">

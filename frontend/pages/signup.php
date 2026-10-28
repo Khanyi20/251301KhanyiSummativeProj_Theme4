@@ -42,7 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $success = 'Your account was created successfully. You can now sign in.';
             }
         } catch (PDOException $e) {
-            error_log('Signup failed: ' . $e->getMessage());
+             error_log('Signup failed: ' . $e->getMessage());
+             error_log('Signup SQL error code: ' . $e->getCode());
             $error = 'We could not create your account. Please try again.';
         }
     }

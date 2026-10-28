@@ -138,7 +138,7 @@ function escapeBookingPage($value) {
     <nav>
         <a href="/frontend/pages/dashboard.php">Dashboard</a>
         &nbsp;|&nbsp;
-        <a href="/frontend/pages/book-visit.php">Book a Visit</a>
+        <a href="/frontend/pages/book_visit.php">Book a Visit</a>
         &nbsp;|&nbsp;
         <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>

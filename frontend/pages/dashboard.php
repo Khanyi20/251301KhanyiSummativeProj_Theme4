@@ -192,21 +192,21 @@ $userEmail = $_SESSION['user_email'] ?? '';
 
         <article class="card">
             <!-- <div class="emoji"></div> -->
+            <h3>Book a Visit</h3>
+            <p>
+                Arrange a visit to meet the animals at the shelter.
+            </p>
+            <a href="/frontend/pages/book_visit.php">Book a Visit</a>
+            
+        </article>
+        
+        <article class="card">
+            <!-- <div class="emoji"></div> -->
             <h3>My Visit Bookings</h3>
             <p>
                 Keep track of your shelter visit requests and their status.
             </p>
             <a href="/frontend/pages/mybookings.php">My Visit Bookings</a>
-        </article>
-
-        <article class="card">
-            <!-- <div class="emoji"></div> -->
-            <h3>Book a Visit</h3>
-            <p>
-                Arrange a visit to meet the animals at the shelter.
-            </p>
-            <a href="/frontend/pages/book-visit.php">Book a Visit</a>
-            
         </article>
 
         <article class="card">

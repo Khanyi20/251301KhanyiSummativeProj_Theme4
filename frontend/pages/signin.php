@@ -17,9 +17,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         try {
             $stmt = $conn->prepare(
-                'SELECT id, full_name, email, password_hash
-                 FROM users
-                 WHERE email = ?'
+                'SELECT my_row_id AS id, full_name, email, password_hash
+                FROM users
+                WHERE email = ?'
             );
             $stmt->execute([$email]);
             $user = $stmt->fetch();

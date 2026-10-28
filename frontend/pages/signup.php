@@ -53,11 +53,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sign Up | Pawsitive</title>
+    <link rel="stylesheet" href="/frontend/css/login_style.css">
+    <title>Sign Up</title>
 </head>
 <body>
-    <h1>Create your Pawsitive account</h1>
-    <h2><a href="/frontend/pages/landingpage.php">back Home</a></h2>
+    <div class="form-container">
+    <h1>Create your <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"> account</h1>
+    <!-- <h2><a href="/frontend/pages/landingpage.php">back Home</a></h2> -->
 
     <?php if ($error !== ''): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
@@ -67,28 +69,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p role="status"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></p>
         <p><a href="/frontend/pages/signin.php">Go to sign in</a></p>
     <?php else: ?>
+    
         <form method="POST" action="/frontend/pages/signup.php">
-            <label for="full_name">Full name</label>
-            <input id="full_name" name="full_name" type="text"
-                   maxlength="100" required autocomplete="name">
 
-            <label for="email">Email address</label>
-            <input id="email" name="email" type="email"
-                   maxlength="255" required autocomplete="email">
+            <div class="form-fields">
+                <label for="full_name">Full name</label>
+                <input id="full_name" name="full_name" type="text"
+                    maxlength="100" required autocomplete="name">
+            </div>
 
-            <label for="password">Password</label>
-            <input id="password" name="password" type="password"
-                   minlength="8" required autocomplete="new-password">
+            <div class="form-fields">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email"
+                    maxlength="255" required autocomplete="email">
+            </div>
 
-            <label for="confirm_password">Confirm password</label>
-            <input id="confirm_password" name="confirm_password"
-                   type="password" minlength="8" required
-                   autocomplete="new-password">
+            <div class="form-fields">
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password"
+                    minlength="8" required autocomplete="new-password">
+            </div>
 
-            <button type="submit">Create account</button>
+            <div class="form-fields">
+                <label for="confirm_password">Confirm password</label>
+                <input id="confirm_password" name="confirm_password"
+                    type="password" minlength="8" required
+                    autocomplete="new-password">
+            </div>
+
+            <button class="btn-submit" type="submit">Create account</button>
+
+            <p class="form-text">
+                Already have an account? <a href="/frontend/pages/signin.php">Sign in</a>
+            </p>
         </form>
+    
+                
 
-        <p>Already have an account? <a href="/frontend/pages/signin.php">Sign in</a></p>
+        
     <?php endif; ?>
+</div>
 </body>
 </html>

@@ -16,14 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Invalid email or password.';
     } else {
         try {
-            // $stmt = $conn->prepare(
-            //     'SELECT my_row_id AS id, full_name, email, password_hash
-            //     FROM users
-            //     WHERE email = ?'
-            // );
-            // $stmt->execute([$email]);
-            // $user = $stmt->fetch();
-
             $stmt = $conn->prepare(
                 'SELECT my_row_id AS id, full_name, email, password_hash, role
                 FROM users
@@ -62,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/frontend/css/login_style.css">
     <title>Sign In</title>
 </head>
 <body>
@@ -73,8 +66,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
         </p>
     <?php endif; ?>
+    <div class="form-container">
 
     <form method="POST" action="/frontend/pages/signin.php">
+        <div class="form-fields">
         <label for="email">Email address</label>
         <input
             id="email"
@@ -83,19 +78,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             required
             autocomplete="email"
         >
+        </div>
 
-        <label for="password">Password</label>
-        <input
-            id="password"
-            name="password"
-            type="password"
-            required
-            autocomplete="current-password"
-        >
 
-        <button type="submit">Sign In</button>
+        <div class="form-fields">
+            <label for="password">Password</label>
+            <input
+                id="password"
+                name="password"
+                type="password"
+                required
+                autocomplete="current-password"
+            >
+        </div>
+
+        <button class="btn-submit" type="submit">Sign In</button>
+
+        <p class="form-text">
+        Don't have an account? <a href="/frontend/pages/signup.php">Create an account</a>
+        </p>
     </form>
+    </div>
 
-    <p>Don't have an account? <a href="/frontend/pages/signup.php">Create an account</a></p>
+    
 </body>
 </html>

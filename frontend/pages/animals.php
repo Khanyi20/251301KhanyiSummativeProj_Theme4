@@ -244,6 +244,11 @@ try {
                         </p>
 
                         <span class="status">Available for adoption</span>
+                        <a href="/frontend/pages/apply.php?animal_id=<?= (int) $animal['animal_id'] ?>"
+                            style="display:inline-block;margin-top:15px;padding:10px 15px;
+                            background:#315c45;color:white;text-decoration:none;border-radius:6px;">
+                            Apply to Adopt
+                        </a>
                     </div>
                 </article>
             <?php endforeach; ?>

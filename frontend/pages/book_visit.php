@@ -146,7 +146,7 @@ function escapeBooking($value) {
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="book-visit.php">
+        <form method="POST" action="/frontend/pages/book_visit.php">
             <label for="visit_date">Visit date *</label>
             <input
                 type="date"
@@ -188,7 +188,7 @@ function escapeBooking($value) {
             <button type="submit">Submit Visit Request</button>
         </form>
 
-        <a class="button" href="dashboard.php">Back to Dashboard</a>
+        <a class="button" href="/frontend/pages/dashboard.php">Back to Dashboard</a>
     </section>
 </main>
 </body>

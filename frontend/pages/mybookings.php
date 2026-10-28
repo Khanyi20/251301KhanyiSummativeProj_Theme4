@@ -158,7 +158,7 @@ function escapeBookingPage($value) {
 
         <div class="message">
             <p>You haven't requested a shelter visit yet.</p>
-            <a class="button" href="/frontend/pages/book-visit.php">Book a Visit</a>
+            <a class="button" href="/frontend/pages/book_visit.php">Book a Visit</a>
         </div>
 
     <?php else: ?>
@@ -217,7 +217,7 @@ function escapeBookingPage($value) {
 
         <?php endforeach; ?>
 
-        <a class="button" href="book-visit.php">Request Another Visit</a>
+        <a class="button" href="/frontend/pages/book_visit.php">Request Another Visit</a>
 
     <?php endif; ?>
 

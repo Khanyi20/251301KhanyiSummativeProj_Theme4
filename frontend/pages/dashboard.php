@@ -216,6 +216,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
                 Support animal care, food, shelter, and veterinary needs.
             </p>
             <a href="/frontend/pages/donate.php">Donate</a>
+            <a href="/frontend/pages/client_donations.php">My Donations</a>
         </article>
 
     </section>

@@ -229,4 +229,3 @@ function escapeBookingPage($value) {
 </footer>
 </body>
 </html>
-```

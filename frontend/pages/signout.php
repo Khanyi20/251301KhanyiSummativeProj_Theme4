@@ -1,4 +1,3 @@
-
 <?php
 session_start();
 
@@ -20,6 +19,6 @@ if (ini_get('session.use_cookies')) {
 
 session_destroy();
 
-header('Location: signin.php');
+header('Location: /frontend/pages/signin.php');
 exit;
 ?>

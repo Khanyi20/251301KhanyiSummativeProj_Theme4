@@ -108,7 +108,7 @@ function escapeStaff($value) {
 <header>
     <h1>Pawsitive Staff</h1>
     <nav>
-        <a href="dashboard.php">Customer Dashboard</a>
+        <a href="/frontend/pages/staff_dashboard.php">Staff Dashboard</a>
         &nbsp; | &nbsp;
         <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>
@@ -122,22 +122,22 @@ function escapeStaff($value) {
     </section>
 
     <section class="cards">
-        <a class="card" href="manage-animals.php">
+        <a class="card" href="/frontend/pages/manage_animals.php">
             <h3>Manage Animals</h3>
             <p>Add new animals and update existing animal listings.</p>
         </a>
 
-        <a class="card" href="manage-applications.php">
+        <a class="card" href="/frontend/pages/manage_applications.php">
             <h3>Adoption Applications</h3>
             <p>Review customer applications and update their statuses.</p>
         </a>
 
-        <a class="card" href="manage-bookings.php">
+        <a class="card" href="/frontend/pages/manage_bookings.php">
             <h3>Visit Bookings</h3>
             <p>View visit requests and confirm or cancel appointments.</p>
         </a>
 
-        <a class="card" href="manage-donations.php">
+        <a class="card" href="/frontend/pages/manage_donations.php">
             <h3>Donations</h3>
             <p>Review recorded donations and donation pledges.</p>
         </a>
@@ -149,4 +149,3 @@ function escapeStaff($value) {
 </footer>
 </body>
 </html>
-```

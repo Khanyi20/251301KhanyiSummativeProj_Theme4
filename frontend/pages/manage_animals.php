@@ -1,0 +1,322 @@
+<?php
+session_start();
+
+if (empty($_SESSION['user_id'])) {
+    header('Location: signin.php');
+    exit;
+}
+
+if (($_SESSION['user_role'] ?? '') !== 'staff') {
+    header('Location: dashboard.php');
+    exit;
+}
+
+require_once __DIR__ . '/../../backend/db.php';
+
+$error = '';
+$success = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
+
+    if ($action === 'add') {
+        $name = trim($_POST['name'] ?? '');
+        $species = trim($_POST['species'] ?? '');
+        $breed = trim($_POST['breed'] ?? '');
+        $age = trim($_POST['age'] ?? '');
+        $gender = trim($_POST['gender'] ?? '');
+        $description = trim($_POST['description'] ?? '');
+        $imageUrl = trim($_POST['image_url'] ?? '');
+
+        $validSpecies = ['Dog', 'Cat', 'Other'];
+        $validGenders = ['', 'Male', 'Female', 'Unknown'];
+
+        if ($name === '' || strlen($name) > 100) {
+            $error = 'Enter an animal name of no more than 100 characters.';
+        } elseif (!in_array($species, $validSpecies, true)) {
+            $error = 'Choose a valid species.';
+        } elseif (strlen($breed) > 100 || strlen($age) > 50) {
+            $error = 'The breed or age entry is too long.';
+        } elseif (!in_array($gender, $validGenders, true)) {
+            $error = 'Choose a valid gender.';
+        } elseif (strlen($imageUrl) > 500) {
+            $error = 'The image URL is too long.';
+        } elseif ($imageUrl !== '' &&
+            (!filter_var($imageUrl, FILTER_VALIDATE_URL) ||
+             !in_array(strtolower((string)parse_url($imageUrl, PHP_URL_SCHEME)), ['http', 'https'], true))) {
+            $error = 'Enter a valid image URL starting with http:// or https://.';
+        } else {
+            try {
+                $stmt = $conn->prepare(
+                    "INSERT INTO animals
+                    (name, species, breed, age, gender, description, image_url, status)
+                    VALUES (?, ?, ?, ?, ?, ?, ?, 'Available')"
+                );
+
+                $stmt->execute([
+                    $name,
+                    $species,
+                    $breed !== '' ? $breed : null,
+                    $age !== '' ? $age : null,
+                    $gender !== '' ? $gender : null,
+                    $description !== '' ? $description : null,
+                    $imageUrl !== '' ? $imageUrl : null
+                ]);
+
+                $success = 'Animal added successfully.';
+            } catch (PDOException $e) {
+                error_log('Adding animal failed: ' . $e->getMessage());
+                $error = 'We could not add the animal. Please check the database and try again.';
+            }
+        }
+    } elseif ($action === 'status') {
+        $animalId = filter_input(INPUT_POST, 'animal_id', FILTER_VALIDATE_INT);
+        $newStatus = $_POST['status'] ?? '';
+        $allowedStatuses = ['Available', 'Adopted', 'Unavailable'];
+
+        if (!$animalId || !in_array($newStatus, $allowedStatuses, true)) {
+            $error = 'Invalid animal or status.';
+        } else {
+            try {
+                $stmt = $conn->prepare(
+                    "UPDATE animals SET status = ? WHERE animal_id = ?"
+                );
+                $stmt->execute([$newStatus, $animalId]);
+
+                $success = $stmt->rowCount() > 0
+                    ? 'Animal status updated.'
+                    : 'No change was made. The animal may already have that status.';
+            } catch (PDOException $e) {
+                error_log('Updating animal status failed: ' . $e->getMessage());
+                $error = 'We could not update the animal status.';
+            }
+        }
+    } else {
+        $error = 'Invalid request.';
+    }
+}
+
+try {
+    $stmt = $conn->query(
+        "SELECT animal_id, name, species, breed, age, gender, status, created_at
+         FROM animals
+         ORDER BY created_at DESC"
+    );
+    $animals = $stmt->fetchAll();
+} catch (PDOException $e) {
+    error_log('Loading animals for the staff failed: ' . $e->getMessage());
+    $animals = [];
+    $error = $error ?: 'Animal list could not be loaded';
+}
+
+function escapeAnimalAdmin($value) {
+    return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
+}
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manage Animals</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            color: #26352d;
+            background: #f5f7f4;
+        }
+        header {
+            background: #315c45;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        header h1 { margin: 0; font-size: 25px; }
+        header a { color: white; text-decoration: none; }
+        main { max-width: 1100px; margin: 30px auto; padding: 0 18px; }
+        .panel {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #e3e9e3;
+            box-shadow: 0 3px 12px #0000000a;
+        }
+        h2 { color: #315c45; margin-top: 0; }
+        label { display: block; margin: 14px 0 6px; font-weight: bold; }
+        input, select, textarea {
+            width: 100%;
+            padding: 11px;
+            border: 1px solid #ccd5cd;
+            border-radius: 6px;
+            font: inherit;
+        }
+        textarea { min-height: 90px; resize: vertical; }
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        button, .button {
+            display: inline-block;
+            padding: 10px 14px;
+            margin-top: 15px;
+            background: #315c45;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .message { padding: 12px; border-radius: 6px; margin-bottom: 16px; }
+        .success { background: #e3f3e6; color: #245c35; }
+        .error { background: #fde8e8; color: #a12626; }
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; min-width: 650px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e3e9e3; }
+        th { background: #edf3ee; }
+        td form { display: flex; gap: 8px; align-items: center; }
+        td select { min-width: 130px; }
+        td button { margin: 0; }
+        .muted { color: #657168; }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Manage Animals</h1>
+    <nav>
+        <a href="/frontend/pages/staff_dashboard.php">Staff Dashboard</a> &nbsp;|&nbsp;
+        <a href="/frontend/pages/animals.php">Public Listings</a> &nbsp;|&nbsp;
+        <a href="/frontend/pages/landingpage.php">Sign Out</a>
+    </nav>
+</header>
+
+<main>
+    <?php if ($success !== ''): ?>
+        <div class="message success" role="status">
+            <?= escapeAnimalAdmin($success) ?>
+        </div>
+    <?php endif; ?>
+
+    <?php if ($error !== ''): ?>
+        <div class="message error" role="alert">
+            <?= escapeAnimalAdmin($error) ?>
+        </div>
+    <?php endif; ?>
+
+    <section class="panel">
+        <h2>Add a New Animal</h2>
+        <p class="muted">New animals are listed as available for adoption.</p>
+
+        <form method="POST" action="manage-animals.php">
+            <input type="hidden" name="action" value="add">
+
+            <div class="form-grid">
+                <div>
+                    <label for="name">Animal name *</label>
+                    <input id="name" name="name" maxlength="100" required>
+                </div>
+
+                <div>
+                    <label for="species">Species *</label>
+                    <select id="species" name="species" required>
+                        <option value="">Choose species</option>
+                        <option value="Dog">Dog</option>
+                        <option value="Cat">Cat</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="breed">Breed</label>
+                    <input id="breed" name="breed" maxlength="100">
+                </div>
+
+                <div>
+                    <label for="age">Age</label>
+                    <input id="age" name="age" maxlength="50" placeholder="e.g. 2 years">
+                </div>
+
+                <div>
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                        <option value="">Not specified</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Unknown">Unknown</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="image_url">Image URL (optional)</label>
+                    <input id="image_url" name="image_url" type="url" maxlength="500"
+                           placeholder="https://example.com/image.jpg">
+                </div>
+            </div>
+
+            <label for="description">Description</label>
+            <textarea id="description" name="description" maxlength="10000"></textarea>
+
+            <button type="submit">Add Animal</button>
+        </form>
+    </section>
+
+    <section class="panel">
+        <h2>Existing Animals</h2>
+
+        <?php if (empty($animals)): ?>
+            <p class="muted">No animals were found, or the list could not be loaded.</p>
+        <?php else: ?>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Species</th>
+                            <th>Breed</th>
+                            <th>Status</th>
+                            <th>Update Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($animals as $animal): ?>
+                        <tr>
+                            <td><?= (int)$animal['animal_id'] ?></td>
+                            <td><?= escapeAnimalAdmin($animal['name']) ?></td>
+                            <td><?= escapeAnimalAdmin($animal['species']) ?></td>
+                            <td><?= escapeAnimalAdmin($animal['breed']) ?></td>
+                            <td><?= escapeAnimalAdmin($animal['status']) ?></td>
+                            <td>
+                                <form method="POST" action="manage-animals.php">
+                                    <input type="hidden" name="action" value="status">
+                                    <input type="hidden" name="animal_id"
+                                           value="<?= (int)$animal['animal_id'] ?>">
+                                    <select name="status" aria-label="New status for <?= escapeAnimalAdmin($animal['name']) ?>">
+                                        <?php foreach (['Available', 'Adopted', 'Unavailable'] as $status): ?>
+                                            <option value="<?= $status ?>"
+                                                <?= $animal['status'] === $status ? 'selected' : '' ?>>
+                                                <?= $status ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <button type="submit">Save</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+        <?php endif; ?>
+    </section>
+</main>
+</body>
+</html>

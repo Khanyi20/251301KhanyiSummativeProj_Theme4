@@ -209,4 +209,3 @@ foreach ($donations as $donation) {
 </footer>
 </body>
 </html>
-```

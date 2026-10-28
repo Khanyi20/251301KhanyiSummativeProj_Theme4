@@ -201,4 +201,3 @@ function escapeDonation($value) {
 </main>
 </body>
 </html>
-```

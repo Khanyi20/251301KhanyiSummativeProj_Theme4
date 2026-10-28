@@ -243,4 +243,3 @@ function escapeHtml($value) {
 </footer>
 </body>
 </html>
-```

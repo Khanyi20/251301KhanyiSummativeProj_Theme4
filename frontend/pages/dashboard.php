@@ -1,22 +1,11 @@
-
 <?php
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-echo "<!-- DEBUG: dashboard.php started -->";
-
 session_start();
 
-echo "<!-- DEBUG: session started -->";
-
+// Only signed-in customers may view this page.
 if (empty($_SESSION['user_id'])) {
-    echo "<!-- DEBUG: user_id missing from session -->";
     header('Location: signin.php');
     exit;
 }
-
-echo "<!-- DEBUG: user authenticated -->";
 
 $userName = $_SESSION['user_name'] ?? 'Pawsitive member';
 $userEmail = $_SESSION['user_email'] ?? '';

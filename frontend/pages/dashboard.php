@@ -152,7 +152,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
 
 <header>
     <h1>Pawsitive</h1>
-    <a class="logout" href="/frontend/pages/signout.php">Sign Out</a>
+    <a class="logout" href="/frontend/pages/landingpage.php">Sign Out</a>
 </header>
 
 <main>

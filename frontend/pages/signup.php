@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <h1>Create your Pawsitive account</h1>
-    <h2><a href="landingpage.php">back Home</a></h2>
+    <h2><a href="/frontend/pages/landingpage.php">back Home</a></h2>
 
     <?php if ($error !== ''): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
@@ -65,9 +65,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?php if ($success !== ''): ?>
         <p role="status"><?= htmlspecialchars($success, ENT_QUOTES, 'UTF-8') ?></p>
-        <p><a href="signin.php">Go to sign in</a></p>
+        <p><a href="/frontend/pages/signin.php">Go to sign in</a></p>
     <?php else: ?>
-        <form method="POST" action="signup.php">
+        <form method="POST" action="/frontend/pages/signup.php">
             <label for="full_name">Full name</label>
             <input id="full_name" name="full_name" type="text"
                    maxlength="100" required autocomplete="name">
@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Create account</button>
         </form>
 
-        <p>Already have an account? <a href="signin.php">Sign in</a></p>
+        <p>Already have an account? <a href="/frontend/pages/signin.php">Sign in</a></p>
     <?php endif; ?>
 </body>
 </html>

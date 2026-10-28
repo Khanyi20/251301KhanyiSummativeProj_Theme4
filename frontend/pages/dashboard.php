@@ -174,7 +174,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
     <section class="cards">
 
         <article class="card">
-            <!-- <div class="emoji">🐶</div> -->
+            <!-- <div class="emoji"></div> -->
             <h3>Meet the Animals</h3>
             <p>
                 Discover animals waiting for a safe, loving home.
@@ -183,7 +183,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
         </article>
 
         <article class="card">
-            <!-- <div class="emoji">📋</div> -->
+            <!-- <div class="emoji"></div> -->
             <h3>My Applications</h3>
             <p>
                 Keep track of your adoption applications and their progress.
@@ -192,7 +192,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
         </article>
 
         <article class="card">
-            <!-- <div class="emoji">📅</div> -->
+            <!-- <div class="emoji"></div> -->
             <h3>Book a Visit</h3>
             <p>
                 Arrange a visit to meet the animals at the shelter.
@@ -201,7 +201,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
         </article>
 
         <article class="card">
-            <!-- <div class="emoji">💚</div> -->
+            <!-- <div class="emoji"></div> -->
             <h3>Make a Donation</h3>
             <p>
                 Support animal care, food, shelter, and veterinary needs.

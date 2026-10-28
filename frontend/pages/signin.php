@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
     <?php endif; ?>
 
-    <form method="POST" action="signin.php">
+    <form method="POST" action="/frontend/pages/signin.php">
         <label for="email">Email address</label>
         <input
             id="email"

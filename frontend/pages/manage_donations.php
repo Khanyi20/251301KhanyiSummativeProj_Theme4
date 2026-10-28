@@ -56,7 +56,7 @@ $stmt = $conn->query(
         d.message,
         d.status,
         d.donation_date,
-        u.fullname,
+        u.full_name,
         u.email
      FROM donations d
      JOIN users u ON d.user_id = u.id
@@ -156,7 +156,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="details">
                     <strong>Donor:</strong>
-                    <?= e($donation['fullname']) ?><br>
+                    <?= e($donation['full_name']) ?><br>
 
                     <strong>Email:</strong>
                     <?= e($donation['email']) ?><br>

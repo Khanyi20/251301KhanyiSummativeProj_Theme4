@@ -52,7 +52,7 @@ $stmt = $conn->query(
         aa.experience,
         aa.status,
         aa.application_date,
-        u.fullname,
+        u.full_name,
         u.email,
         a.name AS animal_name
      FROM adoption_applications aa
@@ -156,7 +156,7 @@ function e($value) {
 
                 <div class="details">
                     <strong>Applicant:</strong>
-                    <?= e($application['fullname']) ?><br>
+                    <?= e($application['full_name']) ?><br>
 
                     <strong>Email:</strong>
                     <?= e($application['email']) ?><br>

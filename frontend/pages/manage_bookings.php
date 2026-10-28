@@ -57,7 +57,7 @@ $stmt = $conn->query(
         vb.notes,
         vb.status,
         vb.created_at,
-        u.fullname,
+        u.full_name,
         u.email
      FROM visit_bookings vb
      JOIN users u ON vb.user_id = u.id
@@ -158,7 +158,7 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 <div class="details">
                     <strong>Customer:</strong>
-                    <?= e($booking['fullname']) ?><br>
+                    <?= e($booking['full_name']) ?><br>
 
                     <strong>Email:</strong>
                     <?= e($booking['email']) ?><br>

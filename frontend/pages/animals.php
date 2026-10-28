@@ -1,9 +1,8 @@
-
 <?php
 session_start();
 
 if (empty($_SESSION['user_id'])) {
-    header('Location: signin.php');
+    header('Location: /frontend/pages/signin.php');
     exit;
 }
 

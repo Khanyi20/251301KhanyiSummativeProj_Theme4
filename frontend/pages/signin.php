@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sign In | Pawsitive</title>
+    <title>Sign In</title>
 </head>
 <body>
     <h1>Welcome back to Pawsitive</h1>

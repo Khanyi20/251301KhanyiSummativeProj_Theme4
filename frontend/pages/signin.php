@@ -16,10 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Invalid email or password.';
     } else {
         try {
+            // $stmt = $conn->prepare(
+            //     'SELECT my_row_id AS id, full_name, email, password_hash
+            //     FROM users
+            //     WHERE email = ?'
+            // );
+            // $stmt->execute([$email]);
+            // $user = $stmt->fetch();
+
             $stmt = $conn->prepare(
-                'SELECT my_row_id AS id, full_name, email, password_hash
+                'SELECT my_row_id AS id, full_name, email, password_hash, role
                 FROM users
-                WHERE email = ?'
+                WHERE email = ?
+                LIMIT 1'
             );
             $stmt->execute([$email]);
             $user = $stmt->fetch();
@@ -30,8 +39,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['full_name'];
                 $_SESSION['user_email'] = $user['email'];
+                $_SESSION['user_role'] = $user['role'];
 
-                header('Location: dashboard.php');
+                if ($user['role'] === 'staff') {
+                    header('Location: staff_dashboard.php');
+                } else {
+                    header('Location: dashboard.php');
+                }
                 exit;
             }
 

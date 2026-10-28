@@ -178,7 +178,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
             <p>
                 Discover animals waiting for a safe, loving home.
             </p>
-            <a href="animals.php">Browse Animals</a>
+            <a href="/frontend/pages/animals.php">Browse Animals</a>
         </article>
 
         <article class="card">
@@ -187,7 +187,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
             <p>
                 Keep track of your adoption applications and their progress.
             </p>
-            <a href="applications.php">My Applications</a>
+            <a href="/frontend/pages/applications.php">My Applications</a>
         </article>
 
         <article class="card">
@@ -196,7 +196,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
             <p>
                 Arrange a visit to meet the animals at the shelter.
             </p>
-            <a href="book-visit.php">Book a Visit</a>
+            <a href="/frontend/pages/book-visit.php">Book a Visit</a>
         </article>
 
         <article class="card">

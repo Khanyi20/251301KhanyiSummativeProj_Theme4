@@ -24,7 +24,7 @@ body {
   font-family: Arial, sans-serif;
   background: var(--warm-cream);
   color: var(--charcoal);
-  display: flex;
+  
   background-image: url('/frontend/assets/Pattern 6.png');
   background-size: cover;
   background-repeat: repeat;
@@ -119,7 +119,7 @@ body {
 }
 
 .logo img {
-  height: 38px; /* Proper proportional logo size */
+  height: 15px; /* Proper proportional logo size */
   width: auto;
   object-fit: contain;
 }

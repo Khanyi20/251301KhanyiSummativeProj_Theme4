@@ -14,6 +14,7 @@ if (($_SESSION['user_role'] ?? '') !== 'staff') {
 require_once __DIR__ . '/../../backend/db.php';
 
 $message = '';
+$loadError = '';
 
 function e($value) {
     return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
@@ -33,38 +34,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$bookingId || !in_array($status, $allowedStatuses, true)) {
         $message = 'Invalid booking or status.';
     } else {
-        $stmt = $conn->prepare(
-            "UPDATE visit_bookings
-             SET status = :status
-             WHERE booking_id = :id"
-        );
+        try {
+            $stmt = $conn->prepare(
+                "UPDATE visit_bookings
+                 SET status = :status
+                 WHERE booking_id = :id"
+            );
 
-        $stmt->execute([
-            ':status' => $status,
-            ':id' => $bookingId
-        ]);
+            $stmt->execute([
+                ':status' => $status,
+                ':id' => $bookingId
+            ]);
 
-        $message = 'Booking status updated successfully.';
+            $message = 'Booking status updated successfully.';
+        } catch (PDOException $e) {
+            error_log('Updating visit booking failed: ' . $e->getMessage());
+            $loadError = 'The booking status could not be updated. Please try again.';
+        }
     }
 }
 
-$stmt = $conn->query(
-    "SELECT
-        vb.booking_id,
-        vb.visit_date,
-        vb.visit_time,
-        vb.number_of_visitors,
-        vb.notes,
-        vb.status,
-        vb.created_at,
-        u.full_name,
-        u.email
-     FROM visit_bookings vb
-     JOIN users u ON vb.user_id = u.id
-     ORDER BY vb.visit_date DESC, vb.visit_time DESC"
-);
+$bookings = [];
+try {
+    $stmt = $conn->query(
+        "SELECT
+            vb.booking_id,
+            vb.visit_date,
+            vb.visit_time,
+            vb.number_of_visitors,
+            vb.notes,
+            vb.status,
+            vb.created_at,
+            u.full_name,
+            u.email
+         FROM visit_bookings vb
+         LEFT JOIN users u ON vb.user_id = u.id
+         ORDER BY vb.visit_date DESC, vb.visit_time DESC"
+    );
 
-$bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log('Loading visit bookings failed: ' . $e->getMessage());
+    $loadError = 'Booking records could not be loaded. Check the database connection and table setup.';
+}
 ?>
 
 <!DOCTYPE html>
@@ -123,13 +135,17 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p class="message success" role="status"><?= e($message) ?></p>
     <?php endif; ?>
 
-    <?php if (empty($bookings)): ?>
+    <?php if ($loadError !== ''): ?>
+        <p class="message error" role="alert"><?= e($loadError) ?></p>
+    <?php endif; ?>
+
+    <?php if ($loadError === '' && empty($bookings)): ?>
 
         <section class="staff-panel">
             <p class="muted">No visit bookings have been submitted yet.</p>
         </section>
 
-    <?php else: ?>
+    <?php elseif (!empty($bookings)): ?>
 
         <?php foreach ($bookings as $booking): ?>
 

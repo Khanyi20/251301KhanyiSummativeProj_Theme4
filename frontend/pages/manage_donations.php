@@ -14,6 +14,7 @@ if (($_SESSION['user_role'] ?? '') !== 'staff') {
 require_once __DIR__ . '/../../backend/db.php';
 
 $message = '';
+$loadError = '';
 
 function e($value) {
     return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
@@ -33,37 +34,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$donationId || !in_array($status, $allowedStatuses, true)) {
         $message = 'Invalid donation or status.';
     } else {
-        $stmt = $conn->prepare(
-            "UPDATE donations
-             SET status = :status
-             WHERE donation_id = :id"
-        );
+        try {
+            $stmt = $conn->prepare(
+                "UPDATE donations
+                 SET status = :status
+                 WHERE donation_id = :id"
+            );
 
-        $stmt->execute([
-            ':status' => $status,
-            ':id' => $donationId
-        ]);
+            $stmt->execute([
+                ':status' => $status,
+                ':id' => $donationId
+            ]);
 
-        $message = 'Donation status updated successfully.';
+            $message = 'Donation status updated successfully.';
+        } catch (PDOException $e) {
+            error_log('Updating donation status failed: ' . $e->getMessage());
+            $loadError = 'The donation status could not be updated. Please try again.';
+        }
     }
 }
 
-$stmt = $conn->query(
-    "SELECT
-        d.donation_id,
-        d.amount,
-        d.donation_type,
-        d.message,
-        d.status,
-        d.donation_date,
-        u.full_name,
-        u.email
-     FROM donations d
-     JOIN users u ON d.user_id = u.id
-     ORDER BY d.donation_date DESC"
-);
+$donations = [];
+try {
+    $stmt = $conn->query(
+        "SELECT
+            d.donation_id,
+            d.amount,
+            d.donation_type,
+            d.message,
+            d.status,
+            d.donation_date,
+            u.full_name,
+            u.email
+         FROM donations d
+         LEFT JOIN users u ON d.user_id = u.id
+         ORDER BY d.donation_date DESC"
+    );
 
-$donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log('Loading donations failed: ' . $e->getMessage());
+    $loadError = 'Donation records could not be loaded. Check the database connection and table setup.';
+}
 ?>
 
 <!DOCTYPE html>
@@ -123,13 +135,17 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p class="message success" role="status"><?= e($message) ?></p>
     <?php endif; ?>
 
-    <?php if (empty($donations)): ?>
+    <?php if ($loadError !== ''): ?>
+        <p class="message error" role="alert"><?= e($loadError) ?></p>
+    <?php endif; ?>
+
+    <?php if ($loadError === '' && empty($donations)): ?>
 
         <section class="staff-panel">
             <p class="muted">No donation pledges have been recorded yet.</p>
         </section>
 
-    <?php else: ?>
+    <?php elseif (!empty($donations)): ?>
 
         <?php foreach ($donations as $donation): ?>
 

@@ -14,6 +14,7 @@ if (($_SESSION['user_role'] ?? '') !== 'staff') {
 require_once __DIR__ . '/../../backend/db.php';
 
 $message = '';
+$loadError = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $applicationId = filter_input(
@@ -29,39 +30,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$applicationId || !in_array($status, $allowedStatuses, true)) {
         $message = 'Invalid application or status.';
     } else {
-        $stmt = $conn->prepare(
-            "UPDATE adoption_applications
-             SET status = :status
-             WHERE application_id = :id"
-        );
+        try {
+            $stmt = $conn->prepare(
+                "UPDATE adoption_applications
+                 SET status = :status
+                 WHERE application_id = :id"
+            );
 
-        $stmt->execute([
-            ':status' => $status,
-            ':id' => $applicationId
-        ]);
+            $stmt->execute([
+                ':status' => $status,
+                ':id' => $applicationId
+            ]);
 
-        $message = 'Application status updated successfully.';
+            $message = 'Application status updated successfully.';
+        } catch (PDOException $e) {
+            error_log('Updating adoption application failed: ' . $e->getMessage());
+            $loadError = 'The application status could not be updated. Please try again.';
+        }
     }
 }
 
-$stmt = $conn->query(
-    "SELECT
-        aa.application_id,
-        aa.reason,
-        aa.living_situation,
-        aa.experience,
-        aa.status,
-        aa.application_date,
-        u.full_name,
-        u.email,
-        a.name AS animal_name
-     FROM adoption_applications aa
-     JOIN users u ON aa.user_id = u.id
-     JOIN animals a ON aa.animal_id = a.animal_id
-     ORDER BY aa.application_date DESC"
-);
-
-$applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$applications = [];
+try {
+    $stmt = $conn->query(
+        "SELECT
+            aa.application_id,
+            aa.reason,
+            aa.living_situation,
+            aa.experience,
+            aa.status,
+            aa.application_date,
+            u.full_name,
+            u.email,
+            a.name AS animal_name
+         FROM adoption_applications aa
+         LEFT JOIN users u ON aa.user_id = u.id
+         LEFT JOIN animals a ON aa.animal_id = a.animal_id
+         ORDER BY aa.application_date DESC"
+    );
+    $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    error_log('Loading adoption applications failed: ' . $e->getMessage());
+    $loadError = 'Application records could not be loaded. Check the database connection and table setup.';
+}
 
 function e($value) {
     return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
@@ -124,11 +135,15 @@ function e($value) {
         <p class="message success" role="status"><?= e($message) ?></p>
     <?php endif; ?>
 
-    <?php if (empty($applications)): ?>
+    <?php if ($loadError !== ''): ?>
+        <p class="message error" role="alert"><?= e($loadError) ?></p>
+    <?php endif; ?>
+
+    <?php if ($loadError === '' && empty($applications)): ?>
         <section class="staff-panel">
             <p class="muted">No adoption applications have been submitted yet.</p>
         </section>
-    <?php else: ?>
+    <?php elseif (!empty($applications)): ?>
 
         <?php foreach ($applications as $application): ?>
             <section class="staff-panel">

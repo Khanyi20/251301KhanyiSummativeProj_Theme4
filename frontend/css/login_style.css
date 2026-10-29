@@ -33,6 +33,13 @@ body {
   min-height: 100vh;
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
+
 .form-container {
   background-color: var(--warm-cream);
   width: 100%;
@@ -47,6 +54,11 @@ body {
   gap: 20px;
 }
 
+.form {
+  background-color: var(--warm-cream);
+  align-items: center;
+  justify-content: center;
+}
 
 .form-fields {
   display: flex;
@@ -129,7 +141,7 @@ body {
   margin-bottom: 0.5rem;
 }
 .logo {
-  height: 38px; /* Proper proportional logo size */
+  height: 60px; /* Proper proportional logo size */
   width: auto;
   object-fit: contain;
 }

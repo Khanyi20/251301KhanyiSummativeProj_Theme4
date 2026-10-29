@@ -58,6 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Sign In</title>
 </head>
 <body>
+
+    <div class="container">
+
     <div class="login-text">
     <h1>Welcome back to <img class="logo" src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"></h1>
     <p>Sign in to continue.</p>
@@ -70,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
     
 
-    <form method="POST" action="/frontend/pages/signin.php">
+    <form class="form" method="POST" action="/frontend/pages/signin.php">
     <div class="form-container">
         <div class="form-fields">
         <label for="email">Email address</label>
@@ -94,16 +97,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 autocomplete="current-password"
             >
         </div>
-
+        </div>
         <button class="btn-submit" type="submit">Sign In</button>
 
         <p class="form-text">
         Don't have an account? <a href="/frontend/pages/signup.php">Create an account</a>
         </p>
-    </div>
+    
     </form>
     
 
-    
+    </div>
 </body>
 </html>

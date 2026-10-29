@@ -57,6 +57,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Sign Up</title>
 </head>
 <body>
+
+    <div class="container">
+        
     <div class="login-text">
     <h1>Create your <img class="logo" src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"> account</h1>
     <!-- <h2><a href="/frontend/pages/landingpage.php">back Home</a></h2> -->
@@ -71,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p><a href="/frontend/pages/signin.php">Go to sign in</a></p>
     <?php else: ?>
     
-        <form method="POST" action="/frontend/pages/signup.php">
+        <form class="form" method="POST" action="/frontend/pages/signup.php">
         <div class="form-container">
             <div class="form-fields">
                 <label for="full_name">Full name</label>
@@ -97,19 +100,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     type="password" minlength="8" required
                     autocomplete="new-password">
             </div>
-
+            </div>
             <button class="btn-submit" type="submit">Create account</button>
 
             <p class="form-text">
                 Already have an account? <a href="/frontend/pages/signin.php">Sign in</a>
             </p>
-        </div>
+       
         </form>
     
                 
 
         
     <?php endif; ?>
-
+    </div>
 </body>
 </html>

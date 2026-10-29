@@ -76,29 +76,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
         <form class="form" method="POST" action="/frontend/pages/signup.php">
         <div class="form-container">
-            <div class="form-fields">
-                <label for="full_name">Full name</label>
-                <input id="full_name" name="full_name" type="text"
-                    maxlength="100" required autocomplete="name">
+
+            <div class="separate-fields">
+                <div class="form-fields">
+                    <label for="full_name">Full name</label>
+                    <input id="full_name" name="full_name" type="text"
+                        maxlength="100" required autocomplete="name">
+                </div>
+
+                <div class="form-fields">
+                    <label for="email">Email address</label>
+                    <input id="email" name="email" type="email"
+                        maxlength="255" required autocomplete="email">
+                </div>
             </div>
 
-            <div class="form-fields">
-                <label for="email">Email address</label>
-                <input id="email" name="email" type="email"
-                    maxlength="255" required autocomplete="email">
-            </div>
+            <div class="separate-fields">
+                <div class="form-fields">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password"
+                        minlength="8" required autocomplete="new-password">
+                </div>
 
-            <div class="form-fields">
-                <label for="password">Password</label>
-                <input id="password" name="password" type="password"
-                    minlength="8" required autocomplete="new-password">
-            </div>
-
-            <div class="form-fields">
-                <label for="confirm_password">Confirm password</label>
-                <input id="confirm_password" name="confirm_password"
-                    type="password" minlength="8" required
-                    autocomplete="new-password">
+                <div class="form-fields">
+                    <label for="confirm_password">Confirm password</label>
+                    <input id="confirm_password" name="confirm_password"
+                        type="password" minlength="8" required
+                        autocomplete="new-password">
+                </div>
             </div>
             </div>
             <button class="btn-submit" type="submit">Create account</button>

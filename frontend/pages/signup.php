@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     
-    <h1>Create your <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"> account</h1>
+    <h1>Create your <img class="logo" src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"> account</h1>
     <!-- <h2><a href="/frontend/pages/landingpage.php">back Home</a></h2> -->
-     
+
     <div class="form-container">
     <?php if ($error !== ''): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>

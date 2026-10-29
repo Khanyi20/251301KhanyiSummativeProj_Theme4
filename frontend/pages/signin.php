@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Sign In</title>
 </head>
 <body>
-    <h1>Welcome back to <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"></h1>
+    <h1>Welcome back to <img class="logo" src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"></h1>
     <p>Sign in to continue.</p>
 
     <div class="form-container">

@@ -28,6 +28,10 @@ $stats = [
 $upcomingBookings = [];
 $recentApplications = [];
 $recentDonations = [];
+$bookingSectionTitle = 'Upcoming Visits';
+$bookingLoadFailed = false;
+$applicationLoadFailed = false;
+$donationLoadFailed = false;
 
 try {
     $statsStmt = $conn->query(
@@ -39,41 +43,74 @@ try {
             (SELECT COALESCE(SUM(amount), 0) FROM donations WHERE status <> 'Cancelled') AS donation_total"
     );
     $stats = array_merge($stats, $statsStmt->fetch() ?: []);
+} catch (PDOException $e) {
+    error_log('Loading staff dashboard statistics failed: ' . $e->getMessage());
+    $dashboardError = 'Some dashboard information could not be loaded. Please try again later.';
+}
 
+try {
     $bookingsStmt = $conn->query(
         "SELECT vb.booking_id, vb.visit_date, vb.visit_time,
                 vb.number_of_visitors, vb.status, u.full_name
          FROM visit_bookings vb
-         INNER JOIN users u ON vb.user_id = u.id
+         LEFT JOIN users u ON vb.user_id = u.id
          WHERE vb.visit_date >= CURDATE() AND vb.status <> 'Cancelled'
          ORDER BY vb.visit_date ASC, vb.visit_time ASC
          LIMIT 5"
     );
     $upcomingBookings = $bookingsStmt->fetchAll();
 
+    if (empty($upcomingBookings)) {
+        $recentBookingsStmt = $conn->query(
+            "SELECT vb.booking_id, vb.visit_date, vb.visit_time,
+                    vb.number_of_visitors, vb.status, u.full_name
+             FROM visit_bookings vb
+             LEFT JOIN users u ON vb.user_id = u.id
+             ORDER BY vb.visit_date DESC, vb.visit_time DESC
+             LIMIT 5"
+        );
+        $upcomingBookings = $recentBookingsStmt->fetchAll();
+        if (!empty($upcomingBookings)) {
+            $bookingSectionTitle = 'Recent Visits (no upcoming bookings)';
+        }
+    }
+} catch (PDOException $e) {
+    error_log('Loading staff dashboard bookings failed: ' . $e->getMessage());
+    $dashboardError = 'Some dashboard information could not be loaded. Please try again later.';
+    $bookingLoadFailed = true;
+}
+
+try {
     $applicationsStmt = $conn->query(
         "SELECT aa.application_id, aa.status, aa.application_date,
                 u.full_name, a.name AS animal_name
          FROM adoption_applications aa
-         INNER JOIN users u ON aa.user_id = u.id
-         INNER JOIN animals a ON aa.animal_id = a.animal_id
+         LEFT JOIN users u ON aa.user_id = u.id
+         LEFT JOIN animals a ON aa.animal_id = a.animal_id
          ORDER BY aa.application_date DESC
          LIMIT 5"
     );
     $recentApplications = $applicationsStmt->fetchAll();
+} catch (PDOException $e) {
+    error_log('Loading staff dashboard applications failed: ' . $e->getMessage());
+    $dashboardError = 'Some dashboard information could not be loaded. Please try again later.';
+    $applicationLoadFailed = true;
+}
 
+try {
     $donationsStmt = $conn->query(
         "SELECT d.donation_id, d.amount, d.donation_type,
                 d.status, d.donation_date, u.full_name
          FROM donations d
-         INNER JOIN users u ON d.user_id = u.id
+         LEFT JOIN users u ON d.user_id = u.id
          ORDER BY d.donation_date DESC
          LIMIT 5"
     );
     $recentDonations = $donationsStmt->fetchAll();
 } catch (PDOException $e) {
-    error_log('Loading the staff dashboard failed: ' . $e->getMessage());
+    error_log('Loading staff dashboard donations failed: ' . $e->getMessage());
     $dashboardError = 'Some dashboard information could not be loaded. Please try again later.';
+    $donationLoadFailed = true;
 }
 ?>
 <!DOCTYPE html>
@@ -161,15 +198,19 @@ try {
         </section>
 
         <section class="staff-panel">
-            <h2>Upcoming Visits</h2>
+            <h2><?= escapeStaff($bookingSectionTitle) ?></h2>
             <?php if (empty($upcomingBookings)): ?>
-                <p class="muted">There are no upcoming visit bookings.</p>
+                <p class="muted">
+                    <?= $bookingLoadFailed
+                        ? 'Visit booking data could not be loaded.'
+                        : 'There are no upcoming or recent visit bookings.' ?>
+                </p>
             <?php else: ?>
                 <ul class="dashboard-list">
                     <?php foreach ($upcomingBookings as $booking): ?>
                         <li class="dashboard-list-item">
                             <div>
-                                <strong><?= escapeStaff($booking['full_name']) ?></strong>
+                                <strong><?= escapeStaff($booking['full_name'] ?: 'Customer') ?></strong>
                                 <span> — <?= (int)$booking['number_of_visitors'] ?> visitor(s)</span>
                             </div>
                             <div class="dashboard-item-meta">
@@ -186,14 +227,18 @@ try {
         <section class="staff-panel">
             <h2>Recent Adoption Applications</h2>
             <?php if (empty($recentApplications)): ?>
-                <p class="muted">No adoption applications have been submitted yet.</p>
+                <p class="muted">
+                    <?= $applicationLoadFailed
+                        ? 'Adoption application data could not be loaded.'
+                        : 'No adoption applications have been submitted yet.' ?>
+                </p>
             <?php else: ?>
                 <ul class="dashboard-list">
                     <?php foreach ($recentApplications as $application): ?>
                         <li class="dashboard-list-item">
                             <div>
-                                <strong><?= escapeStaff($application['animal_name']) ?></strong>
-                                <span> — <?= escapeStaff($application['full_name']) ?></span>
+                                <strong><?= escapeStaff($application['animal_name'] ?: 'Animal record') ?></strong>
+                                <span> — <?= escapeStaff($application['full_name'] ?: 'Customer') ?></span>
                             </div>
                             <div class="dashboard-item-meta">
                                 <?= escapeStaff(date('d M Y', strtotime($application['application_date']))) ?>
@@ -208,13 +253,17 @@ try {
         <section class="staff-panel">
             <h2>Recent Donations</h2>
             <?php if (empty($recentDonations)): ?>
-                <p class="muted">No donations have been recorded yet.</p>
+                <p class="muted">
+                    <?= $donationLoadFailed
+                        ? 'Donation data could not be loaded.'
+                        : 'No donations have been recorded yet.' ?>
+                </p>
             <?php else: ?>
                 <ul class="dashboard-list">
                     <?php foreach ($recentDonations as $donation): ?>
                         <li class="dashboard-list-item">
                             <div>
-                                <strong><?= escapeStaff($donation['full_name']) ?></strong>
+                                <strong><?= escapeStaff($donation['full_name'] ?: 'Donor') ?></strong>
                                 <span> — R<?= number_format((float)$donation['amount'], 2) ?></span>
                             </div>
                             <div class="dashboard-item-meta">

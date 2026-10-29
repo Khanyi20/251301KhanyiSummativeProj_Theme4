@@ -44,14 +44,14 @@ try {
 
     <nav>
         <a href="/frontend/pages/dashboard.php">Home</a>
-        <a href="/frontend/pages/animals.php">Adopt</a>
+        <a href="/frontend/pages/animals.php" aria-current="page">Adopt</a>
         <a href="/frontend/pages/applications.php">Applications</a>
         <a href="/frontend/pages/mybookings.php">Bookings</a>
         <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>
 </header>
 
-<main>
+<main class="page-container">
     <section class="intro">
         <h2>Meet Your New Best Friend</h2>
         <p>Every animal deserves a loving home. Discover our animals waiting for adoption.</p>
@@ -132,8 +132,7 @@ try {
 
                         <span class="status">Available for adoption</span>
                         <a href="/frontend/pages/apply.php?animal_id=<?= (int) $animal['animal_id'] ?>"
-                            style="display:inline-block;margin-top:15px;padding:10px 15px;
-                            background:#315c45;color:white;text-decoration:none;border-radius:6px;">
+                            class="button">
                             Apply to Adopt
                         </a>
                     </div>

@@ -67,16 +67,17 @@ function escapeBooking($value) {
     <title>Book a Shelter Visit</title>
 </head>
 <body>
-<header>
+<header class="page-header">
     <h1>Pawsitive</h1>
     <nav>
-        <a href="/frontend/pages/dashboard.php">Dashboard</a> &nbsp;|&nbsp;
-        <a href="/frontend/pages/animals.php">Animals</a> &nbsp;|&nbsp;
+        <a href="/frontend/pages/dashboard.php">Home</a>
+        <a href="/frontend/pages/animals.php">Animals</a>
+        <a href="/frontend/pages/mybookings.php">Bookings</a>
         <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>
 </header>
 
-<main>
+<main class="page-container">
     <section class="card">
         <h2>Book a Shelter Visit</h2>
         <p class="help">Choose a date and time to visit the animals at our shelter.</p>
@@ -94,7 +95,7 @@ function escapeBooking($value) {
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/frontend/pages/book_visit.php">
+        <form class="customer-form" method="POST" action="/frontend/pages/book_visit.php">
             <label for="visit_date">Visit date *</label>
             <input
                 type="date"

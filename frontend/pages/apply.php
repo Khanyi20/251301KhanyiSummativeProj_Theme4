@@ -79,83 +79,18 @@ if (!$animal && $animalId) {
     <link rel="stylesheet" href="/frontend/css/common.css">
     <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>Adoption Application</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7f4;
-            color: #26352d;
-        }
-        header {
-            background: #315c45;
-            color: white;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        header h1 { margin: 0; font-size: 25px; }
-        header a { color: white; text-decoration: none; }
-        main {
-            max-width: 650px;
-            margin: 35px auto;
-            padding: 0 18px;
-        }
-        .form-card {
-            background: white;
-            padding: 28px;
-            border-radius: 12px;
-            box-shadow: 0 3px 14px #0000000d;
-        }
-        h2 { color: #315c45; margin-top: 0; }
-        label {
-            display: block;
-            margin: 18px 0 7px;
-            font-weight: bold;
-        }
-        input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccd5cd;
-            border-radius: 6px;
-            font: inherit;
-        }
-        textarea { min-height: 110px; resize: vertical; }
-        button, .button {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 12px 18px;
-            background: #315c45;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .message {
-            padding: 12px;
-            border-radius: 6px;
-            margin-bottom: 16px;
-        }
-        .success { background: #e3f3e6; color: #245c35; }
-        .error { background: #fde8e8; color: #a12626; }
-        .help { color: #59655d; font-size: 14px; line-height: 1.5; }
-    </style>
 </head>
 <body>
-<header>
+<header class="page-header">
     <h1>Pawsitive</h1>
     <nav>
-        <a href="/frontend/pages/animals.php">Animals</a> &nbsp; | &nbsp;
+        <a href="/frontend/pages/animals.php">Animals</a>
         <a href="/frontend/pages/dashboard.php">Dashboard</a>
+        <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>
 </header>
 
-<main>
+<main class="page-container">
     <section class="form-card">
         <h2>Adoption Application</h2>
         <p class="help">Tell us a little about yourself and the home you can offer an animal.</p>
@@ -187,7 +122,7 @@ if (!$animal && $animalId) {
                 <strong><?= htmlspecialchars($animal['name'], ENT_QUOTES, 'UTF-8') ?></strong>
             </p>
 
-            <form method="POST" action="apply.php">
+            <form class="customer-form" method="POST" action="apply.php">
                 <input type="hidden" name="animal_id"
                        value="<?= (int) $animal['animal_id'] ?>">
 

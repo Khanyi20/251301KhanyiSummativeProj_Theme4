@@ -25,7 +25,7 @@ $userEmail = $_SESSION['user_email'] ?? '';
     <h1>Pawsitive</h1>
 
     <nav>
-        <a href="/frontend/pages/dashboard.php">Home</a>
+        <a href="/frontend/pages/dashboard.php" aria-current="page">Home</a>
         <a href="/frontend/pages/animals.php">Adopt</a>
         <a href="/frontend/pages/applications.php">Applications</a>
         <a href="/frontend/pages/mybookings.php">Bookings</a>

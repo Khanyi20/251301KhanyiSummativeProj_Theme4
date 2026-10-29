@@ -38,47 +38,25 @@ function escapeBookingPage($value) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/frontend/css/common.css">
-    <link rel="stylesheet" href="/frontend/css/staff.css">
     <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>My Visit Bookings</title>
     
 </head>
 <body>
 
-<div class="staff-layout">
-<aside class="staff-sidebar">
-        <a class="staff-brand" href="/frontend/pages/staff_dashboard.php">
-           <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png"> Pawsitive
-        </a>
+<header class="page-header">
+    <h1>Pawsitive</h1>
+    <nav>
+        <a href="/frontend/pages/dashboard.php">Home</a>
+        <a href="/frontend/pages/animals.php">Animals</a>
+        <a href="/frontend/pages/applications.php">Applications</a>
+        <a href="/frontend/pages/mybookings.php" aria-current="page">Bookings</a>
+        <a href="/frontend/pages/signout.php">Sign Out</a>
+    </nav>
+</header>
 
-        <p class="sidebar-label">STAFF PORTAL</p>
-
-        <nav class="staff-nav">
-            <a class="active" href="/frontend/pages/staff_dashboard.php">
-                Dashboard
-            </a>
-            <a href="/frontend/pages/manage_animals.php">
-                Animals
-            </a>
-            <a href="/frontend/pages/manage_applications.php">
-                Applications
-            </a>
-            <a href="/frontend/pages/manage_bookings.php">
-                 Bookings
-            </a>
-            <a href="/frontend/pages/manage_donations.php">
-                Donations
-            </a>
-        </nav>
-
-        <a class="staff-signout"
-           href="/frontend/pages/signout.php">
-            Sign Out
-        </a>
-    </aside>
-
-<main>
-    <h2>My Visit Bookings</h2>
+<main class="page-container">
+    <h2 class="customer-page-title">My Visit Bookings</h2>
     <p class="muted">View your shelter visit requests and their current status.</p>
 
     <?php if ($error !== ''): ?>
@@ -89,7 +67,7 @@ function escapeBookingPage($value) {
 
     <?php elseif (empty($bookings)): ?>
 
-        <div class="message">
+        <div class="customer-panel">
             <p>You haven't requested a shelter visit yet.</p>
             <a class="button" href="/frontend/pages/book_visit.php">Book a Visit</a>
         </div>
@@ -161,6 +139,5 @@ function escapeBookingPage($value) {
     <p>&copy; <?= date('Y') ?> Pawsitive Animal Shelter</p>
 </footer>
 
-</div>
 </body>
 </html>

@@ -62,16 +62,17 @@ function escapeDonation($value) {
     <title>Donate</title>
 </head>
 <body>
-<header>
+<header class="page-header">
     <h1>Pawsitive</h1>
     <nav>
-        <a href="/frontend/pages/dashboard.php">Dashboard</a> &nbsp;|&nbsp;
-        <a href="/frontend/pages/animals.php">Animals</a> &nbsp;|&nbsp;
+        <a href="/frontend/pages/dashboard.php">Home</a>
+        <a href="/frontend/pages/animals.php">Animals</a>
+        <a href="/frontend/pages/client_donations.php">My Donations</a>
         <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>
 </header>
 
-<main>
+<main class="page-container">
     <section class="card">
         <h2>Support Our Animals</h2>
         <p class="help">
@@ -97,7 +98,7 @@ function escapeDonation($value) {
             </div>
         <?php endif; ?>
 
-        <form method="POST" action="/frontend/pages/donate.php">
+        <form class="customer-form" method="POST" action="/frontend/pages/donate.php">
             <label for="amount">Donation amount (ZAR) *</label>
             <input
                 type="number"

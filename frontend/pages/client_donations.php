@@ -44,46 +44,20 @@ foreach ($donations as $donation) {
     <link rel="stylesheet" href="/frontend/css/common.css">
     <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>My Donations</title>
-    <style>
-       
-        .summary, .donation-card, .message {
-            background: white;
-            padding: 22px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            border: 1px solid #e3e9e3;
-            box-shadow: 0 3px 12px #0000000a;
-        }
-
-        .summary strong {
-            color: #5c3131;
-            font-size: 25px;
-        }
-
-        .donation-card h3 {
-            margin-top: 0;
-            color: #5c3131;
-        }
-
-        
-
-        
-
-        
-    </style>
 </head>
 <body>
-<header>
+<header class="page-header">
     <h1>Pawsitive</h1>
     <nav>
-        <a href="/frontend/pages/dashboard.php">Dashboard</a> &nbsp;|&nbsp;
-        <a href="/frontend/pages/donate.php">Donate</a> &nbsp;|&nbsp;
+        <a href="/frontend/pages/dashboard.php">Home</a>
+        <a href="/frontend/pages/donate.php">Donate</a>
+        <a href="/frontend/pages/client_donations.php" aria-current="page">My Donations</a>
         <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>
 </header>
 
-<main>
-    <h2>My Donations</h2>
+<main class="page-container">
+    <h2 class="customer-page-title">My Donations</h2>
     <p class="muted">Thank you for helping us care for animals in need.</p>
 
     <?php if ($error !== ''): ?>
@@ -94,7 +68,7 @@ foreach ($donations as $donation) {
 
     <?php elseif (empty($donations)): ?>
 
-        <div class="message">
+        <div class="customer-panel">
             <p>You haven't recorded any donations yet.</p>
             <a class="button" href="/frontend/pages/donate.php">Make a Donation Pledge</a>
         </div>

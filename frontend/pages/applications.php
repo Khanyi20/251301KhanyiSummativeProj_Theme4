@@ -53,19 +53,19 @@ function escapeHtml($value) {
 </head>
 
 <body>
-<header>
+<header class="page-header">
     <h1>Pawsitive</h1>
     <nav>
-        <a href="/frontend/pages/dashboard.php">Dashboard</a>
-        &nbsp; | &nbsp;
+        <a href="/frontend/pages/dashboard.php">Home</a>
         <a href="/frontend/pages/animals.php">Browse Animals</a>
-        &nbsp; | &nbsp;
+        <a href="/frontend/pages/applications.php" aria-current="page">Applications</a>
+        <a href="/frontend/pages/mybookings.php">Bookings</a>
         <a href="/frontend/pages/signout.php">Sign Out</a>
     </nav>
 </header>
 
-<main>
-    <h2>My Adoption Applications</h2>
+<main class="page-container">
+    <h2 class="customer-page-title">My Adoption Applications</h2>
     <p class="muted">
         Keep track of the adoption applications you have submitted.
     </p>
@@ -78,7 +78,7 @@ function escapeHtml($value) {
 
     <?php elseif (empty($applications)): ?>
 
-        <div class="message">
+        <div class="customer-panel">
             <p>You haven't submitted any adoption applications yet.</p>
             <a class="button" href="/frontend/pages/animals.php">Browse Available Animals</a>
         </div>

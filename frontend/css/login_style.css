@@ -54,11 +54,13 @@ body {
   gap: 20px;
 }
 
-.form {
+/* .form {
   background-color: var(--warm-cream);
   align-items: center;
   justify-content: center;
-}
+  display: flex;
+  gap: ;
+} */
 
 .form-fields {
   display: flex;

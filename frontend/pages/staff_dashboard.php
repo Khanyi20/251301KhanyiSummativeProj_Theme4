@@ -41,6 +41,7 @@ function escapeStaff($value) {
 
         body {
             margin: 0;
+            padding: 0;
             font-family: Arial, sans-serif;
             background: var(--warm-cream);
             color: var(--charcoal);
@@ -102,19 +103,13 @@ function escapeStaff($value) {
             float: none;
         }
         }
-        /* header {
-            background: #315c45;
-            color: white;
-            padding: 20px 7%;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 15px;
+        header {
+            padding-top: 0;
+            margin-top: 0;
+            
         }
 
-        header h1 { margin: 0; font-size: 26px; }
-        header a { color: white; text-decoration: none; } */
+      
 
         main {
             max-width: 1100px;

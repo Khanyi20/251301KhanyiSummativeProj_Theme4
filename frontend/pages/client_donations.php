@@ -41,39 +41,11 @@ foreach ($donations as $donation) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/frontend/css/common.css">
+    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>My Donations</title>
     <style>
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #26352d;
-            background: #f5f7f4;
-        }
-
-        header {
-            background: #315c45;
-            color: white;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        header h1 { margin: 0; font-size: 25px; }
-        header a { color: white; text-decoration: none; }
-
-        main {
-            max-width: 950px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-        h2 { color: #315c45; }
-
+       
         .summary, .donation-card, .message {
             background: white;
             padding: 22px;
@@ -84,43 +56,20 @@ foreach ($donations as $donation) {
         }
 
         .summary strong {
-            color: #315c45;
+            color: #5c3131;
             font-size: 25px;
         }
 
         .donation-card h3 {
             margin-top: 0;
-            color: #315c45;
+            color: #5c3131;
         }
 
-        .status {
-            display: inline-block;
-            padding: 7px 12px;
-            border-radius: 20px;
-            background: #e3f3e6;
-            color: #245c35;
-            font-size: 13px;
-            font-weight: bold;
-        }
+        
 
-        .muted { color: #657168; line-height: 1.6; }
-        .error { color: #a12626; }
+        
 
-        .button {
-            display: inline-block;
-            margin: 8px 8px 8px 0;
-            padding: 11px 16px;
-            border-radius: 7px;
-            background: #315c45;
-            color: white;
-            text-decoration: none;
-        }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #68736b;
-        }
+        
     </style>
 </head>
 <body>

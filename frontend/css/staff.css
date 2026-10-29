@@ -20,6 +20,7 @@ body {
   background-size: cover;
   background-repeat: repeat;
 }
+
 .staff-layout {
     min-height: 100vh;
 }
@@ -46,7 +47,7 @@ body {
 }
 
 .staff-brand img {
-  height: 28px; /* Proper proportional logo size */
+  height: 48px; 
   width: auto;
   object-fit: contain;
 }

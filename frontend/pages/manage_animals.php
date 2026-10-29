@@ -118,6 +118,9 @@ function escapeAnimalAdmin($value) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/frontend/css/common.css">
+    <link rel="stylesheet" href="/frontend/css/staff.css">
+    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>Manage Animals</title>
     <style>
         * { box-sizing: border-box; }
@@ -189,15 +192,38 @@ function escapeAnimalAdmin($value) {
     </style>
 </head>
 <body>
-<header>
-    <h1>Manage Animals</h1>
-    <nav>
-        <a href="/frontend/pages/staff_dashboard.php">Staff Dashboard</a> &nbsp;|&nbsp;
-        <a href="/frontend/pages/animals.php">Public Listings</a> &nbsp;|&nbsp;
-        <a href="/frontend/pages/landingpage.php">Sign Out</a>
-    </nav>
-</header>
 
+<div class="staff-layout">
+<aside class="staff-sidebar">
+        <a class="staff-brand" href="/frontend/pages/staff_dashboard.php">
+           <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png"> Pawsitive
+        </a>
+
+        <p class="sidebar-label">STAFF PORTAL</p>
+
+        <nav class="staff-nav">
+            <a class="active" href="/frontend/pages/staff_dashboard.php">
+                Dashboard
+            </a>
+            <a href="/frontend/pages/manage_animals.php">
+                Animals
+            </a>
+            <a href="/frontend/pages/manage_applications.php">
+                Applications
+            </a>
+            <a href="/frontend/pages/manage_bookings.php">
+                 Bookings
+            </a>
+            <a href="/frontend/pages/manage_donations.php">
+                Donations
+            </a>
+        </nav>
+
+        <a class="staff-signout"
+           href="/frontend/pages/signout.php">
+            Sign Out
+        </a>
+    </aside>
 <main>
     <?php if ($success !== ''): ?>
         <div class="message success" role="status">
@@ -318,5 +344,6 @@ function escapeAnimalAdmin($value) {
         <?php endif; ?>
     </section>
 </main>
+</div>
 </body>
 </html>

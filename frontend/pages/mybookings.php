@@ -37,112 +37,45 @@ function escapeBookingPage($value) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/frontend/css/common.css">
+    <link rel="stylesheet" href="/frontend/css/staff.css">
+    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>My Visit Bookings</title>
-    <style>
-        * { box-sizing: border-box; }
-
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f5f7f4;
-            color: #26352d;
-        }
-
-        header {
-            background: #315c45;
-            color: white;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        header h1 { margin: 0; font-size: 25px; }
-        header a { color: white; text-decoration: none; }
-
-        main {
-            max-width: 950px;
-            margin: 35px auto;
-            padding: 0 20px;
-        }
-
-        h2 { color: #315c45; }
-
-        .booking-card {
-            background: white;
-            padding: 22px;
-            margin-bottom: 20px;
-            border-radius: 12px;
-            border: 1px solid #e3e9e3;
-            box-shadow: 0 3px 12px #0000000a;
-        }
-
-        .booking-card h3 {
-            color: #315c45;
-            margin-top: 0;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 7px 12px;
-            border-radius: 20px;
-            background: #fff1c9;
-            color: #755600;
-            font-size: 13px;
-            font-weight: bold;
-        }
-
-        .status.confirmed {
-            background: #e3f3e6;
-            color: #245c35;
-        }
-
-        .status.cancelled {
-            background: #fde8e8;
-            color: #a12626;
-        }
-
-        .message {
-            background: white;
-            padding: 18px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-        }
-
-        .error { color: #a12626; }
-
-        .button {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 11px 16px;
-            border-radius: 7px;
-            background: #315c45;
-            color: white;
-            text-decoration: none;
-        }
-
-        .muted { color: #657168; line-height: 1.6; }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: #68736b;
-        }
-    </style>
+    
 </head>
 <body>
-<header>
-    <h1>Pawsitive</h1>
-    <nav>
-        <a href="/frontend/pages/dashboard.php">Dashboard</a>
-        &nbsp;|&nbsp;
-        <a href="/frontend/pages/book_visit.php">Book a Visit</a>
-        &nbsp;|&nbsp;
-        <a href="/frontend/pages/signout.php">Sign Out</a>
-    </nav>
-</header>
+
+<div class="staff-layout">
+<aside class="staff-sidebar">
+        <a class="staff-brand" href="/frontend/pages/staff_dashboard.php">
+           <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png"> Pawsitive
+        </a>
+
+        <p class="sidebar-label">STAFF PORTAL</p>
+
+        <nav class="staff-nav">
+            <a class="active" href="/frontend/pages/staff_dashboard.php">
+                Dashboard
+            </a>
+            <a href="/frontend/pages/manage_animals.php">
+                Animals
+            </a>
+            <a href="/frontend/pages/manage_applications.php">
+                Applications
+            </a>
+            <a href="/frontend/pages/manage_bookings.php">
+                 Bookings
+            </a>
+            <a href="/frontend/pages/manage_donations.php">
+                Donations
+            </a>
+        </nav>
+
+        <a class="staff-signout"
+           href="/frontend/pages/signout.php">
+            Sign Out
+        </a>
+    </aside>
 
 <main>
     <h2>My Visit Bookings</h2>
@@ -227,5 +160,7 @@ function escapeBookingPage($value) {
 <footer>
     <p>&copy; <?= date('Y') ?> Pawsitive Animal Shelter</p>
 </footer>
+
+</div>
 </body>
 </html>

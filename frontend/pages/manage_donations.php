@@ -71,6 +71,9 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/frontend/css/common.css">
+    <link rel="stylesheet" href="/frontend/css/staff.css">
+    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>Manage Donations</title>
 
     <style>
@@ -79,7 +82,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
             background: #f4f7f4;
             margin: 0;
             padding: 24px;
-            color: #26352b;
+            color: #2e2d2d;
         }
 
         .container {
@@ -88,7 +91,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         h1, h2 {
-            color: #286443;
+            color: #642828;
         }
 
         .donation {
@@ -106,7 +109,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         .message-box {
             padding: 12px;
-            background: #e3f4e8;
+            background: #ffecf3;
             border-radius: 6px;
         }
 
@@ -117,7 +120,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         button {
-            background: #286443;
+            background: #642830;
             color: white;
             border: none;
             cursor: pointer;
@@ -131,12 +134,40 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+
+<div class="staff-layout">
 <div class="container">
 
-    <a class="back" href="/frontend/pages/staff_dashboard.php">
-        Back to Staff Dashboard
-    </a>
+    <aside class="staff-sidebar">
+        <a class="staff-brand" href="/frontend/pages/staff_dashboard.php">
+           <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png"> Pawsitive
+        </a>
 
+        <p class="sidebar-label">STAFF PORTAL</p>
+
+        <nav class="staff-nav">
+            <a class="active" href="/frontend/pages/staff_dashboard.php">
+                Dashboard
+            </a>
+            <a href="/frontend/pages/manage_animals.php">
+                Animals
+            </a>
+            <a href="/frontend/pages/manage_applications.php">
+                Applications
+            </a>
+            <a href="/frontend/pages/manage_bookings.php">
+                 Bookings
+            </a>
+            <a href="/frontend/pages/manage_donations.php">
+                Donations
+            </a>
+        </nav>
+
+        <a class="staff-signout"
+           href="/frontend/pages/signout.php">
+            Sign Out
+        </a>
+    </aside>
     <h1>Manage Donations</h1>
 
     <?php if ($message !== ''): ?>
@@ -211,6 +242,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php endif; ?>
 
+</div>
 </div>
 </body>
 </html>

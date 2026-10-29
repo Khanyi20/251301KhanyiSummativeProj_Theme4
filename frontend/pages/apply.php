@@ -76,6 +76,8 @@ if (!$animal && $animalId) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/frontend/css/common.css">
+    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>Adoption Application</title>
     <style>
         * { box-sizing: border-box; }

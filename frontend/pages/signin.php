@@ -58,15 +58,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Sign In</title>
 </head>
 <body>
-    <h1>Welcome back to Pawsitive</h1>
+    <h1>Welcome back to <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"></h1>
     <p>Sign in to continue.</p>
 
+    <div class="form-container">
     <?php if ($error !== ''): ?>
         <p role="alert">
             <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
         </p>
     <?php endif; ?>
-    <div class="form-container">
+    
 
     <form method="POST" action="/frontend/pages/signin.php">
         <div class="form-fields">

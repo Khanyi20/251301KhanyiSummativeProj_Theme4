@@ -43,7 +43,7 @@ body {
   align-items: center;
   justify-content: center;
   display: flex;
-  flex-direction: row;
+  gap: 20px;
 }
 
  h1 {
@@ -56,16 +56,16 @@ body {
 .form-fields {
   display: flex;
   flex-direction: column;
-  gap: 1rem; /* Adds space between form fields */
-  margin-bottom: 1.25rem;
-  
+  gap: 10px; /* Adds space between form fields */
+  margin-bottom: 1rem;
+  flex: 1; 
 }
 
 .form-fields label {
   font-size: 0.875rem;
   font-weight: 600;
   color: var(--charcoal);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
 }
 
 .form-fields input {
@@ -120,8 +120,8 @@ body {
   text-decoration: underline;
 }
 
-.logo img {
-  height: 38px; /* Proper proportional logo size */
+.logo {
+  height: 15px; /* Proper proportional logo size */
   width: auto;
   object-fit: contain;
 }

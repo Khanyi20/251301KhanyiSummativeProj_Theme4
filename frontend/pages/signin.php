@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Welcome back to <img class="logo" src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"></h1>
     <p>Sign in to continue.</p>
 
-    <div class="form-container">
+    
     <?php if ($error !== ''): ?>
         <p role="alert">
             <?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?>
@@ -70,6 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
 
     <form method="POST" action="/frontend/pages/signin.php">
+    <div class="form-container">
         <div class="form-fields">
         <label for="email">Email address</label>
         <input
@@ -98,8 +99,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p class="form-text">
         Don't have an account? <a href="/frontend/pages/signup.php">Create an account</a>
         </p>
-    </form>
     </div>
+    </form>
+    
 
     
 </body>

@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Create your <img class="logo" src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png" alt="Pawsitive"> account</h1>
     <!-- <h2><a href="/frontend/pages/landingpage.php">back Home</a></h2> -->
 
-    <div class="form-container">
+    
     <?php if ($error !== ''): ?>
         <p role="alert"><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8') ?></p>
     <?php endif; ?>
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php else: ?>
     
         <form method="POST" action="/frontend/pages/signup.php">
-
+        <div class="form-container">
             <div class="form-fields">
                 <label for="full_name">Full name</label>
                 <input id="full_name" name="full_name" type="text"
@@ -103,12 +103,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p class="form-text">
                 Already have an account? <a href="/frontend/pages/signin.php">Sign in</a>
             </p>
+        </div>
         </form>
     
                 
 
         
     <?php endif; ?>
-</div>
+
 </body>
 </html>

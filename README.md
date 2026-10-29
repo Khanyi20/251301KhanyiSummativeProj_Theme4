@@ -16,11 +16,9 @@ AWS: Pawsitive-env.eba-c2phcpsq.eu-north-1.elasticbeanstalk.com
 4. Design vs Final Build
 5. Screenshots
 6. Deployment In Azure
-7. Running Locally
-8. Database
-9. Security Notes
-10. Limitations
-11. Author
+7. Database
+8. Limitations
+
 
 ---
 
@@ -116,3 +114,24 @@ Component	= Azure service
 - Web application	= Azure App Service (Web App named pawsitive, Production slot, region South Africa North)
 - Database	= Azure Database for MySQL – Flexible Server
 - CI/CD = GitHub Actions using azure/login (OpenID Connect) and azure/webapps-deploy
+
+---
+
+## 7. Database
+
+| Table | Purpose | 
+| -------- | -------- |
+| users| Accounts: my_row_id, full_name, email, password_hash, role (user / staff) | 
+| animals| 	Animals listed for adoption, including image and status | 
+| adoption_applications| Applications linking a user to an animal, with a status | 
+| visit_bookings| user_id, visit_date, visit_time, number_of_visitors, notes, status | 
+| donations| donor, amount, frequency, message, status | 
+
+## 8. Limitations
+
+- Live payment gateway (e.g. PayFast) and proof-of-payment upload from the original design
+- Staff calendar and shelter capacity / donation statistics charts
+- Staff notice board
+- Adoption progress tracker for adopters
+- Liked / favourite animals
+- Email notifications when an application or booking status changes

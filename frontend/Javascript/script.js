@@ -52,3 +52,30 @@ function showSlides(n) {
 
 // signup form controls
 
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const search = document.querySelector("#animal-search");
+    const species = document.querySelector("#species-filter");
+    const cards = document.querySelectorAll(".animal-card");
+
+    function filterAnimals() {
+        const query = (search?.value || "").toLowerCase().trim();
+        const selectedSpecies = species?.value || "";
+
+        cards.forEach((card) => {
+            const text = card.textContent.toLowerCase();
+            const cardSpecies = card.dataset.species || "";
+
+            const matchesSearch = text.includes(query);
+            const matchesSpecies =
+                !selectedSpecies || cardSpecies === selectedSpecies;
+
+            card.hidden = !(matchesSearch && matchesSpecies);
+        });
+    }
+
+    search?.addEventListener("input", filterAnimals);
+    species?.addEventListener("change", filterAnimals);
+});

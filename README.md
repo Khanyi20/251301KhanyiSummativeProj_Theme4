@@ -87,4 +87,19 @@ Public / landing page
 
 | Design               | Final Look               |
 | ---------------------- | ---------------------- |
-| ![old](frontend/readme/Frame 383.png) | ![new](images/dog.png) |
+| ![old](/frontend/readme_assets/old_landing.png) | ![new](/frontend/readme_assets/landingpage.jpeg) |
+
+
+
+| Design               | Final Look               |
+| ---------------------- | ---------------------- |
+| ![old](/frontend/readme_assets/Frame%20383.png) | ![new](/frontend/readme_assets/staff_dashboard.jpeg) |
+
+
+---
+
+## 5. Screenshot
+
+| Desktop               | Tablet               |Mobile               |
+| ---------------------- | ---------------------- |
+| ![old](/frontend/readme_assets/landingpage.jpeg) | ![new](/frontend/readme_assets/tablet_landing.jpeg) | ![new](/frontend/readme_assets/mobile_landing.jpeg) |

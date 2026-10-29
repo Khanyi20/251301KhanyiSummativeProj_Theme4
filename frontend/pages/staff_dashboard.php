@@ -31,7 +31,7 @@ function escapeStaff($value) {
 
     <aside class="staff-sidebar">
         <a class="staff-brand" href="/frontend/pages/staff_dashboard.php">
-            Pawsitive
+           <img src="/frontend/assets/Pawsitive Animal Shelter_logo_cutout 2.png"> Pawsitive
         </a>
 
         <p class="sidebar-label">STAFF PORTAL</p>

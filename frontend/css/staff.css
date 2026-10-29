@@ -1,4 +1,25 @@
+:root {
+  --primary-color: #FFFAF6;
+  --secondary-color: #2B2B2B;
+  --accent-color: #E5E5E5;
+  --text-color: #292727; 
+  --success-color: #4F8D49;
+  --error-color: #830B14;
+  --warning-color: #E4981F;
+  --info-color: #C9C6BC;
+  --brand-color: #BD2935;
+  --blush-pink: #F8E8E7;
+  --charcoal: #292727;
+  --warm-cream: #FFFAF6;
+  --warm-red: #B04747;
+}
 
+
+body {
+    background-image: url('/frontend/assets/Pattern 6.png');
+  background-size: cover;
+  background-repeat: repeat;
+}
 .staff-layout {
     min-height: 100vh;
 }
@@ -9,23 +30,29 @@
     z-index: 10;
     width: 245px;
     padding: 26px 16px;
-    background: #244533;
-    color: white;
+    background: var(--charcoal);
+    color: var(--warm-cream);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
 }
 
 .staff-brand {
-    color: white;
+    color: var(--warm-cream);
     font-size: 23px;
     font-weight: 700;
     text-decoration: none;
     margin-bottom: 32px;
 }
 
+.staff-brand img {
+  height: 28px; /* Proper proportional logo size */
+  width: auto;
+  object-fit: contain;
+}
+
 .sidebar-label {
-    color: #b8cabb;
+    color: var(--warm-red);
     font-size: 11px;
     letter-spacing: 1.5px;
     font-weight: 700;
@@ -38,7 +65,7 @@
 }
 
 .staff-nav a {
-    color: #edf4ee;
+    color: var(--brand-color);
     padding: 12px;
     border-radius: 9px;
     text-decoration: none;
@@ -49,12 +76,12 @@
 
 .staff-nav a:hover,
 .staff-nav a.active {
-    background: #3e6a50;
-    color: white;
+    background: var(--warm-red);
+    color: var(--warm-cream);
 }
 
 .staff-signout {
-    color: white;
+    color: var(--warm-cream);
     text-decoration: none;
     margin-top: auto;
     padding: 18px 12px 0;
@@ -89,7 +116,7 @@
 
 .stat-card,
 .staff-panel {
-    background: white;
+    background: var(--warm-cream);
     border: 1px solid var(--border);
     border-radius: 14px;
     padding: 22px;
@@ -103,7 +130,7 @@
 }
 
 .stat-card h2 {
-    color: var(--green);
+    color: var(--brand-color);
     font-size: 28px;
     margin-bottom: 0;
 }
@@ -114,12 +141,12 @@
 
 .staff-panel h2 {
     margin-top: 0;
-    color: var(--green);
+    color: var(--warm-red);
 }
 
 .staff-badge {
-    background: var(--green-light);
-    color: var(--green);
+    background: var(--warm-red);
+    color: var(--warm-cream);
     padding: 7px 12px;
     border-radius: 20px;
     font-size: 12px;

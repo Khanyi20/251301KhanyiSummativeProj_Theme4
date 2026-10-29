@@ -85,6 +85,6 @@ Public / landing page
 
 ## 4. Design vs Final Build
 
-| Cat pics               | Dog pics               |
+| Design               | Final Look               |
 | ---------------------- | ---------------------- |
-| ![cat](images/cat.png) | ![dog](images/dog.png) |
+| ![old](frontend/readme/Frame 383.png) | ![new](images/dog.png) |

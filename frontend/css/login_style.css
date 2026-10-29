@@ -36,7 +36,8 @@ body {
 .form-container {
   background-color: var(--warm-cream);
   width: 100%;
-  max-width: 400px; /* Constrains card size on wider viewports */
+  min-width: 420px; /* Ensures usability on smaller devices */
+  max-width: 1000px; /* Constrains card size on wider viewports */
   padding: 2.5rem;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05); /* Soft depth shadow */
@@ -46,12 +47,6 @@ body {
   gap: 20px;
 }
 
- h1 {
-  margin-bottom: 1.5rem;
-  color: var(--charcoal);
-  font-size: 1.75rem;
-  text-align: center;
-}
 
 .form-fields {
   display: flex;
@@ -71,6 +66,7 @@ body {
 .form-fields input {
   border: 1px solid var(--accent-color);
   border-radius: 8px;
+  background-color: #b5b4b3;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
@@ -120,8 +116,20 @@ body {
   text-decoration: underline;
 }
 
+.logo-text {
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.logo-text h1 {
+  font-size: 1.5rem;
+  color: var(--charcoal);
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
 .logo {
-  height: 15px; /* Proper proportional logo size */
+  height: 38px; /* Proper proportional logo size */
   width: auto;
   object-fit: contain;
 }

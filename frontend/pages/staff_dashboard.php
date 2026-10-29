@@ -11,8 +11,69 @@ if (($_SESSION['user_role'] ?? '') !== 'staff') {
     exit;
 }
 
+require_once __DIR__ . '/../../backend/db.php';
+
 function escapeStaff($value) {
     return htmlspecialchars((string)($value ?? ''), ENT_QUOTES, 'UTF-8');
+}
+
+$dashboardError = '';
+$stats = [
+    'total_animals' => 0,
+    'available_animals' => 0,
+    'pending_applications' => 0,
+    'visit_bookings' => 0,
+    'donation_total' => 0,
+];
+$upcomingBookings = [];
+$recentApplications = [];
+$recentDonations = [];
+
+try {
+    $statsStmt = $conn->query(
+        "SELECT
+            (SELECT COUNT(*) FROM animals) AS total_animals,
+            (SELECT COUNT(*) FROM animals WHERE status = 'Available') AS available_animals,
+            (SELECT COUNT(*) FROM adoption_applications WHERE status = 'Pending') AS pending_applications,
+            (SELECT COUNT(*) FROM visit_bookings) AS visit_bookings,
+            (SELECT COALESCE(SUM(amount), 0) FROM donations WHERE status <> 'Cancelled') AS donation_total"
+    );
+    $stats = array_merge($stats, $statsStmt->fetch() ?: []);
+
+    $bookingsStmt = $conn->query(
+        "SELECT vb.booking_id, vb.visit_date, vb.visit_time,
+                vb.number_of_visitors, vb.status, u.full_name
+         FROM visit_bookings vb
+         INNER JOIN users u ON vb.user_id = u.id
+         WHERE vb.visit_date >= CURDATE() AND vb.status <> 'Cancelled'
+         ORDER BY vb.visit_date ASC, vb.visit_time ASC
+         LIMIT 5"
+    );
+    $upcomingBookings = $bookingsStmt->fetchAll();
+
+    $applicationsStmt = $conn->query(
+        "SELECT aa.application_id, aa.status, aa.application_date,
+                u.full_name, a.name AS animal_name
+         FROM adoption_applications aa
+         INNER JOIN users u ON aa.user_id = u.id
+         INNER JOIN animals a ON aa.animal_id = a.animal_id
+         ORDER BY aa.application_date DESC
+         LIMIT 5"
+    );
+    $recentApplications = $applicationsStmt->fetchAll();
+
+    $donationsStmt = $conn->query(
+        "SELECT d.donation_id, d.amount, d.donation_type,
+                d.status, d.donation_date, u.full_name
+         FROM donations d
+         INNER JOIN users u ON d.user_id = u.id
+         ORDER BY d.donation_date DESC
+         LIMIT 5"
+    );
+    $recentDonations = $donationsStmt->fetchAll();
+} catch (PDOException $e) {
+    error_log('Loading the staff dashboard failed: ' . $e->getMessage());
+    $dashboardError = 'Some dashboard information could not be loaded. Please try again later.';
 }
 ?>
 <!DOCTYPE html>
@@ -70,37 +131,101 @@ function escapeStaff($value) {
             <span class="staff-badge">STAFF</span>
         </div>
 
-        <!-- Add your database-driven statistics here. -->
+        <?php if ($dashboardError !== ''): ?>
+            <div class="message error" role="alert">
+                <?= escapeStaff($dashboardError) ?>
+            </div>
+        <?php endif; ?>
+
         <section class="staff-stats">
             <article class="stat-card">
                 <p>Total Animals</p>
-                <h2><!-- PHP: animal count --></h2>
+                <h2><?= number_format((int)$stats['total_animals']) ?></h2>
+                <small><?= number_format((int)$stats['available_animals']) ?> available for adoption</small>
             </article>
 
             <article class="stat-card">
                 <p>Pending Applications</p>
-                <h2><!-- PHP: pending count --></h2>
+                <h2><?= number_format((int)$stats['pending_applications']) ?></h2>
             </article>
 
             <article class="stat-card">
-                <p>Visit Bookings</p>
-                <h2><!-- PHP: booking count --></h2>
+                <p>Total Visit Bookings</p>
+                <h2><?= number_format((int)$stats['visit_bookings']) ?></h2>
             </article>
 
             <article class="stat-card">
-                <p>Total Donations</p>
-                <h2><!-- PHP: donation total --></h2>
+                <p>Recorded Donations</p>
+                <h2>R<?= number_format((float)$stats['donation_total'], 2) ?></h2>
             </article>
         </section>
 
         <section class="staff-panel">
-            <h2>Upcoming Activities</h2>
-            <!-- calendar component goes here. -->
+            <h2>Upcoming Visits</h2>
+            <?php if (empty($upcomingBookings)): ?>
+                <p class="muted">There are no upcoming visit bookings.</p>
+            <?php else: ?>
+                <ul class="dashboard-list">
+                    <?php foreach ($upcomingBookings as $booking): ?>
+                        <li class="dashboard-list-item">
+                            <div>
+                                <strong><?= escapeStaff($booking['full_name']) ?></strong>
+                                <span> — <?= (int)$booking['number_of_visitors'] ?> visitor(s)</span>
+                            </div>
+                            <div class="dashboard-item-meta">
+                                <?= escapeStaff(date('d M Y', strtotime($booking['visit_date']))) ?>
+                                at <?= escapeStaff(date('g:i A', strtotime($booking['visit_time']))) ?>
+                                · <?= escapeStaff($booking['status']) ?>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
+        </section>
+
+        <section class="staff-panel">
+            <h2>Recent Adoption Applications</h2>
+            <?php if (empty($recentApplications)): ?>
+                <p class="muted">No adoption applications have been submitted yet.</p>
+            <?php else: ?>
+                <ul class="dashboard-list">
+                    <?php foreach ($recentApplications as $application): ?>
+                        <li class="dashboard-list-item">
+                            <div>
+                                <strong><?= escapeStaff($application['animal_name']) ?></strong>
+                                <span> — <?= escapeStaff($application['full_name']) ?></span>
+                            </div>
+                            <div class="dashboard-item-meta">
+                                <?= escapeStaff(date('d M Y', strtotime($application['application_date']))) ?>
+                                · <?= escapeStaff($application['status']) ?>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </section>
 
         <section class="staff-panel">
             <h2>Recent Donations</h2>
-            <!-- Reuse existing PHP donation loop. -->
+            <?php if (empty($recentDonations)): ?>
+                <p class="muted">No donations have been recorded yet.</p>
+            <?php else: ?>
+                <ul class="dashboard-list">
+                    <?php foreach ($recentDonations as $donation): ?>
+                        <li class="dashboard-list-item">
+                            <div>
+                                <strong><?= escapeStaff($donation['full_name']) ?></strong>
+                                <span> — R<?= number_format((float)$donation['amount'], 2) ?></span>
+                            </div>
+                            <div class="dashboard-item-meta">
+                                <?= escapeStaff(date('d M Y', strtotime($donation['donation_date']))) ?>
+                                · <?= escapeStaff($donation['donation_type']) ?>
+                                · <?= escapeStaff($donation['status']) ?>
+                            </div>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            <?php endif; ?>
         </section>
     </main>
 

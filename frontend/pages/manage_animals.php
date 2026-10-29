@@ -26,10 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $age = trim($_POST['age'] ?? '');
         $gender = trim($_POST['gender'] ?? '');
         $description = trim($_POST['description'] ?? '');
-        $imageUrl = trim($_POST['image_url'] ?? '');
+        $imageUpload = $_FILES['image'] ?? null;
+        $imagePath = null;
+        $imageFilePath = null;
 
         $validSpecies = ['Dog', 'Cat', 'Other'];
         $validGenders = ['', 'Male', 'Female', 'Unknown'];
+        $maxImageSize = 5 * 1024 * 1024;
 
         if ($name === '' || strlen($name) > 100) {
             $error = 'Enter an animal name of no more than 100 characters.';
@@ -39,13 +42,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = 'The breed or age entry is too long.';
         } elseif (!in_array($gender, $validGenders, true)) {
             $error = 'Choose a valid gender.';
-        } elseif (strlen($imageUrl) > 500) {
-            $error = 'The image URL is too long.';
-        } elseif ($imageUrl !== '' &&
-            (!filter_var($imageUrl, FILTER_VALIDATE_URL) ||
-             !in_array(strtolower((string)parse_url($imageUrl, PHP_URL_SCHEME)), ['http', 'https'], true))) {
-            $error = 'Enter a valid image URL starting with http:// or https://.';
-        } else {
+        } elseif ($imageUpload && $imageUpload['error'] !== UPLOAD_ERR_NO_FILE &&
+            $imageUpload['error'] !== UPLOAD_ERR_OK) {
+            $error = 'The image could not be uploaded. Choose another image and try again.';
+        } elseif ($imageUpload && $imageUpload['error'] === UPLOAD_ERR_OK) {
+            if ($imageUpload['size'] > $maxImageSize) {
+                $error = 'The image must be 5 MB or smaller.';
+            } else {
+                $fileInfo = new finfo(FILEINFO_MIME_TYPE);
+                $mimeType = $fileInfo->file($imageUpload['tmp_name']);
+                $imageTypes = [
+                    'image/jpeg' => 'jpg',
+                    'image/png' => 'png',
+                    'image/webp' => 'webp',
+                ];
+
+                if (!isset($imageTypes[$mimeType]) || !getimagesize($imageUpload['tmp_name'])) {
+                    $error = 'Choose a valid JPG, PNG, or WebP image.';
+                } else {
+                    $uploadDirectory = __DIR__ . '/../assets/animals';
+                    if (!is_dir($uploadDirectory) && !mkdir($uploadDirectory, 0755, true)) {
+                        $error = 'The image upload folder is unavailable. Please contact the site administrator.';
+                    } elseif (!is_writable($uploadDirectory)) {
+                        $error = 'The image upload folder is not writable. Please contact the site administrator.';
+                    } else {
+                        $fileName = bin2hex(random_bytes(16)) . '.' . $imageTypes[$mimeType];
+                        $imageFilePath = $uploadDirectory . DIRECTORY_SEPARATOR . $fileName;
+                        $imagePath = '/frontend/assets/animals/' . $fileName;
+
+                        if (!move_uploaded_file($imageUpload['tmp_name'], $imageFilePath)) {
+                            $error = 'The image could not be saved. Please try again.';
+                            $imageFilePath = null;
+                            $imagePath = null;
+                        }
+                    }
+                }
+            }
+        }
+
+        if ($error === '') {
             try {
                 $stmt = $conn->prepare(
                     "INSERT INTO animals
@@ -60,13 +95,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $age !== '' ? $age : null,
                     $gender !== '' ? $gender : null,
                     $description !== '' ? $description : null,
-                    $imageUrl !== '' ? $imageUrl : null
+                    $imagePath
                 ]);
 
                 $success = 'Animal added successfully.';
             } catch (PDOException $e) {
+                if ($imageFilePath && is_file($imageFilePath)) {
+                    unlink($imageFilePath);
+                }
                 error_log('Adding animal failed: ' . $e->getMessage());
                 $error = 'We could not add the animal. Please check the database and try again.';
+            } catch (Throwable $e) {
+                if ($imageFilePath && is_file($imageFilePath)) {
+                    unlink($imageFilePath);
+                }
+                error_log('Saving uploaded animal image failed: ' . $e->getMessage());
+                $error = 'We could not save the animal. Please try again.';
             }
         }
     } elseif ($action === 'status') {
@@ -180,7 +224,7 @@ function escapeAnimalAdmin($value) {
         <h2>Add a New Animal</h2>
         <p class="muted">New animals are listed as available for adoption.</p>
 
-        <form class="staff-form" method="POST" action="manage_animals.php">
+        <form class="staff-form" method="POST" action="manage_animals.php" enctype="multipart/form-data">
             <input type="hidden" name="action" value="add">
 
             <div class="staff-form-grid">
@@ -220,9 +264,8 @@ function escapeAnimalAdmin($value) {
                 </div>
 
                 <div>
-                    <label for="image_url">Image URL (optional)</label>
-                    <input id="image_url" name="image_url" type="url" maxlength="500"
-                           placeholder="https://example.com/image.jpg">
+                          <label for="image">Animal image (optional, JPG/PNG/WebP; max 5 MB)</label>
+                          <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp">
                 </div>
             </div>
 

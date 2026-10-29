@@ -103,3 +103,14 @@ Public / landing page
 | Desktop               | Tablet               |Mobile               |
 | ---------------------- | ---------------------- |
 | ![old](/frontend/readme_assets/landingpage.jpeg) | ![new](/frontend/readme_assets/tablet_landing.jpeg) | ![new](/frontend/readme_assets/mobile_landing.jpeg) |
+
+---
+
+## 6. Deployement in Azure
+
+The site is deployed entirely on Microsoft Azure.
+
+Component	= Azure service
+- Web application	= Azure App Service (Web App named pawsitive, Production slot, region South Africa North)
+- Database	= Azure Database for MySQL – Flexible Server
+- CI/CD = GitHub Actions using azure/login (OpenID Connect) and azure/webapps-deploy

@@ -2,7 +2,9 @@
 
 A web application for an animal shelter that was developed using PHP + MySQL. User can Browse animals, Apply to adopt an animal, book shelter visits and record donations form customers anonymously. The website has two sides, the customer side that indludes the dashboard and the staff dashboard where staff members can manage, add and view records. 
 
-**Live Site**: pawsitive-e5c2gqh8deasgef7.southafricanorth-01.azurewebsites.net
+**Live Site**: 
+Azure: pawsitive-e5c2gqh8deasgef7.southafricanorth-01.azurewebsites.net
+AWS: Pawsitive-env.eba-c2phcpsq.eu-north-1.elasticbeanstalk.com 
 
 ---
 

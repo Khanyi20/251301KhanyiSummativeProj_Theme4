@@ -154,6 +154,66 @@ body {
     font-weight: 700;
 }
 
+.staff-form {
+    margin-top: 18px;
+}
+
+.staff-form label {
+    display: block;
+    margin: 14px 0 6px;
+    color: var(--charcoal);
+    font-weight: 600;
+}
+
+.staff-form input,
+.staff-form select,
+.staff-form textarea {
+    width: 100%;
+    min-width: 0;
+    padding: 10px 12px;
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    background: var(--warm-cream);
+    color: var(--charcoal);
+}
+
+.staff-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.staff-form button {
+    margin-top: 12px;
+}
+
+.staff-details {
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+.staff-inline-status {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--blush-pink);
+    color: var(--warm-red);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.staff-inline-status.is-approved,
+.staff-inline-status.is-confirmed,
+.staff-inline-status.is-received {
+    background: #E7F1E5;
+    color: var(--success-color);
+}
+
+.staff-inline-status.is-rejected,
+.staff-inline-status.is-cancelled {
+    background: #F8E8E7;
+    color: var(--error-color);
+}
+
 .dashboard-list {
     list-style: none;
     margin: 0;
@@ -232,5 +292,9 @@ body {
 
     .dashboard-item-meta {
         text-align: left;
+    }
+
+    .staff-form button {
+        width: 100%;
     }
 }

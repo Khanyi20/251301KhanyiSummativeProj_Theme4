@@ -157,7 +157,9 @@ $bookings = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?= nl2br(e($booking['notes'] ?: 'No notes provided')) ?><br>
 
                     <strong>Current status:</strong>
-                    <?= e($booking['status']) ?>
+                    <span class="staff-inline-status is-<?= e(strtolower($booking['status'])) ?>">
+                        <?= e($booking['status']) ?>
+                    </span>
                 </div>
 
                 <form class="staff-form" method="POST">

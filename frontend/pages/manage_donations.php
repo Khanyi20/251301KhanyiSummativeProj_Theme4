@@ -156,7 +156,9 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?= nl2br(e($donation['message'] ?: 'No message provided')) ?><br>
 
                     <strong>Current status:</strong>
-                    <?= e($donation['status']) ?>
+                    <span class="staff-inline-status is-<?= e(strtolower($donation['status'])) ?>">
+                        <?= e($donation['status']) ?>
+                    </span>
                 </div>
 
                 <form class="staff-form" method="POST">

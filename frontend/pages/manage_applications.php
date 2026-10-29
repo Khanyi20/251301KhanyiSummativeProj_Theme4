@@ -157,7 +157,9 @@ function e($value) {
                     <?= nl2br(e($application['experience'])) ?><br>
 
                     <strong>Current status:</strong>
-                    <?= e($application['status']) ?>
+                    <span class="staff-inline-status is-<?= e(strtolower($application['status'])) ?>">
+                        <?= e($application['status']) ?>
+                    </span>
                 </div>
 
                 <form class="staff-form" method="POST">

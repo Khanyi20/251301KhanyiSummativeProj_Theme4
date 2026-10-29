@@ -75,67 +75,10 @@ function e($value) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/css/common.css">
     <link rel="stylesheet" href="/frontend/css/staff.css">
-    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>Manage Adoption Applications</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f4;
-            margin: 0;
-            padding: 24px;
-            color: #26352b;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        .application {
-            background: white;
-            padding: 20px;
-            margin-bottom: 18px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px #00000010;
-        }
-
-        h1, h2 {
-            color: #286443;
-        }
-
-        .message {
-            padding: 12px;
-            background: #e3f4e8;
-            border-radius: 6px;
-        }
-
-        .details {
-            line-height: 1.7;
-            overflow-wrap: anywhere;
-        }
-
-        select, button {
-            padding: 10px;
-            margin-top: 8px;
-            border-radius: 5px;
-        }
-
-        button {
-            background: #286443;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .back {
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 <body>
     <div class="staff-layout">
-<div class="container">
 
     <aside class="staff-sidebar">
         <a class="staff-brand" href="/frontend/pages/staff_dashboard.php">
@@ -145,13 +88,13 @@ function e($value) {
         <p class="sidebar-label">STAFF PORTAL</p>
 
         <nav class="staff-nav">
-            <a class="active" href="/frontend/pages/staff_dashboard.php">
+            <a href="/frontend/pages/staff_dashboard.php">
                 Dashboard
             </a>
             <a href="/frontend/pages/manage_animals.php">
                 Animals
             </a>
-            <a href="/frontend/pages/manage_applications.php">
+            <a class="active" href="/frontend/pages/manage_applications.php" aria-current="page">
                 Applications
             </a>
             <a href="/frontend/pages/manage_bookings.php">
@@ -168,24 +111,33 @@ function e($value) {
         </a>
     </aside>
 
-    <h1>Manage Adoption Applications</h1>
+    <main class="staff-main">
+    <div class="staff-topbar">
+        <div>
+            <h1>Manage Adoption Applications</h1>
+            <p class="muted">Review adoption applications and update their status.</p>
+        </div>
+        <span class="staff-badge">STAFF</span>
+    </div>
 
     <?php if ($message !== ''): ?>
-        <p class="message"><?= e($message) ?></p>
+        <p class="message success" role="status"><?= e($message) ?></p>
     <?php endif; ?>
 
     <?php if (empty($applications)): ?>
-        <p>No adoption applications have been submitted yet.</p>
+        <section class="staff-panel">
+            <p class="muted">No adoption applications have been submitted yet.</p>
+        </section>
     <?php else: ?>
 
         <?php foreach ($applications as $application): ?>
-            <section class="application">
+            <section class="staff-panel">
                 <h2>
                     Application #<?= e($application['application_id']) ?>
                     — <?= e($application['animal_name']) ?>
                 </h2>
 
-                <div class="details">
+                <div class="staff-details">
                     <strong>Applicant:</strong>
                     <?= e($application['full_name']) ?><br>
 
@@ -208,7 +160,7 @@ function e($value) {
                     <?= e($application['status']) ?>
                 </div>
 
-                <form method="POST">
+                <form class="staff-form" method="POST">
                     <input
                         type="hidden"
                         name="application_id"
@@ -241,7 +193,7 @@ function e($value) {
 
     <?php endif; ?>
 
-</div>
+    </main>
 </div>
 </body>
 </html>

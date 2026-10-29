@@ -120,76 +120,7 @@ function escapeAnimalAdmin($value) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/frontend/css/common.css">
     <link rel="stylesheet" href="/frontend/css/staff.css">
-    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>Manage Animals</title>
-    <style>
-        * { box-sizing: border-box; }
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            color: #26352d;
-            background: #f5f7f4;
-        }
-        header {
-            background: #315c45;
-            color: white;
-            padding: 18px 7%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-        header h1 { margin: 0; font-size: 25px; }
-        header a { color: white; text-decoration: none; }
-        main { max-width: 1100px; margin: 30px auto; padding: 0 18px; }
-        .panel {
-            background: white;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 24px;
-            border: 1px solid #e3e9e3;
-            box-shadow: 0 3px 12px #0000000a;
-        }
-        h2 { color: #315c45; margin-top: 0; }
-        label { display: block; margin: 14px 0 6px; font-weight: bold; }
-        input, select, textarea {
-            width: 100%;
-            padding: 11px;
-            border: 1px solid #ccd5cd;
-            border-radius: 6px;
-            font: inherit;
-        }
-        textarea { min-height: 90px; resize: vertical; }
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 12px;
-        }
-        button, .button {
-            display: inline-block;
-            padding: 10px 14px;
-            margin-top: 15px;
-            background: #315c45;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        .message { padding: 12px; border-radius: 6px; margin-bottom: 16px; }
-        .success { background: #e3f3e6; color: #245c35; }
-        .error { background: #fde8e8; color: #a12626; }
-        .table-wrap { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; min-width: 650px; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #e3e9e3; }
-        th { background: #edf3ee; }
-        td form { display: flex; gap: 8px; align-items: center; }
-        td select { min-width: 130px; }
-        td button { margin: 0; }
-        .muted { color: #657168; }
-    </style>
 </head>
 <body>
 
@@ -202,10 +133,10 @@ function escapeAnimalAdmin($value) {
         <p class="sidebar-label">STAFF PORTAL</p>
 
         <nav class="staff-nav">
-            <a class="active" href="/frontend/pages/staff_dashboard.php">
+            <a href="/frontend/pages/staff_dashboard.php">
                 Dashboard
             </a>
-            <a href="/frontend/pages/manage_animals.php">
+            <a class="active" href="/frontend/pages/manage_animals.php" aria-current="page">
                 Animals
             </a>
             <a href="/frontend/pages/manage_applications.php">
@@ -224,7 +155,15 @@ function escapeAnimalAdmin($value) {
             Sign Out
         </a>
     </aside>
-<main>
+<main class="staff-main">
+    <div class="staff-topbar">
+        <div>
+            <h1>Manage Animals</h1>
+            <p class="muted">Add animals and update their adoption status.</p>
+        </div>
+        <span class="staff-badge">STAFF</span>
+    </div>
+
     <?php if ($success !== ''): ?>
         <div class="message success" role="status">
             <?= escapeAnimalAdmin($success) ?>
@@ -237,14 +176,14 @@ function escapeAnimalAdmin($value) {
         </div>
     <?php endif; ?>
 
-    <section class="panel">
+    <section class="staff-panel">
         <h2>Add a New Animal</h2>
         <p class="muted">New animals are listed as available for adoption.</p>
 
-        <form method="POST" action="manage-animals.php">
+        <form class="staff-form" method="POST" action="manage_animals.php">
             <input type="hidden" name="action" value="add">
 
-            <div class="form-grid">
+            <div class="staff-form-grid">
                 <div>
                     <label for="name">Animal name *</label>
                     <input id="name" name="name" maxlength="100" required>
@@ -294,14 +233,14 @@ function escapeAnimalAdmin($value) {
         </form>
     </section>
 
-    <section class="panel">
+    <section class="staff-panel">
         <h2>Existing Animals</h2>
 
         <?php if (empty($animals)): ?>
             <p class="muted">No animals were found, or the list could not be loaded.</p>
         <?php else: ?>
             <div class="table-wrap">
-                <table>
+                <table class="staff-table">
                     <thead>
                         <tr>
                             <th>ID</th>
@@ -321,7 +260,7 @@ function escapeAnimalAdmin($value) {
                             <td><?= escapeAnimalAdmin($animal['breed']) ?></td>
                             <td><?= escapeAnimalAdmin($animal['status']) ?></td>
                             <td>
-                                <form method="POST" action="manage-animals.php">
+                                <form class="staff-status-form" method="POST" action="manage_animals.php">
                                     <input type="hidden" name="action" value="status">
                                     <input type="hidden" name="animal_id"
                                            value="<?= (int)$animal['animal_id'] ?>">

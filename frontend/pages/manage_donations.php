@@ -73,70 +73,12 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/frontend/css/common.css">
     <link rel="stylesheet" href="/frontend/css/staff.css">
-    <link rel="stylesheet" href="/frontend/css/customer.css">
     <title>Manage Donations</title>
-
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f7f4;
-            margin: 0;
-            padding: 24px;
-            color: #2e2d2d;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: auto;
-        }
-
-        h1, h2 {
-            color: #642828;
-        }
-
-        .donation {
-            background: white;
-            padding: 20px;
-            margin-bottom: 18px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px #00000010;
-        }
-
-        .details {
-            line-height: 1.8;
-            overflow-wrap: anywhere;
-        }
-
-        .message-box {
-            padding: 12px;
-            background: #ffecf3;
-            border-radius: 6px;
-        }
-
-        select, button {
-            padding: 10px;
-            margin-top: 8px;
-            border-radius: 5px;
-        }
-
-        button {
-            background: #642830;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        .back {
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 
 <body>
 
 <div class="staff-layout">
-<div class="container">
 
     <aside class="staff-sidebar">
         <a class="staff-brand" href="/frontend/pages/staff_dashboard.php">
@@ -146,7 +88,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <p class="sidebar-label">STAFF PORTAL</p>
 
         <nav class="staff-nav">
-            <a class="active" href="/frontend/pages/staff_dashboard.php">
+            <a href="/frontend/pages/staff_dashboard.php">
                 Dashboard
             </a>
             <a href="/frontend/pages/manage_animals.php">
@@ -158,7 +100,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <a href="/frontend/pages/manage_bookings.php">
                  Bookings
             </a>
-            <a href="/frontend/pages/manage_donations.php">
+            <a class="active" href="/frontend/pages/manage_donations.php" aria-current="page">
                 Donations
             </a>
         </nav>
@@ -168,24 +110,33 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
             Sign Out
         </a>
     </aside>
-    <h1>Manage Donations</h1>
+    <main class="staff-main">
+    <div class="staff-topbar">
+        <div>
+            <h1>Manage Donations</h1>
+            <p class="muted">Review donation records and update their status.</p>
+        </div>
+        <span class="staff-badge">STAFF</span>
+    </div>
 
     <?php if ($message !== ''): ?>
-        <p class="message-box"><?= e($message) ?></p>
+        <p class="message success" role="status"><?= e($message) ?></p>
     <?php endif; ?>
 
     <?php if (empty($donations)): ?>
 
-        <p>No donation pledges have been recorded yet.</p>
+        <section class="staff-panel">
+            <p class="muted">No donation pledges have been recorded yet.</p>
+        </section>
 
     <?php else: ?>
 
         <?php foreach ($donations as $donation): ?>
 
-            <section class="donation">
+            <section class="staff-panel">
                 <h2>Donation #<?= e($donation['donation_id']) ?></h2>
 
-                <div class="details">
+                <div class="staff-details">
                     <strong>Donor:</strong>
                     <?= e($donation['full_name']) ?><br>
 
@@ -208,7 +159,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?= e($donation['status']) ?>
                 </div>
 
-                <form method="POST">
+                <form class="staff-form" method="POST">
                     <input
                         type="hidden"
                         name="donation_id"
@@ -242,7 +193,7 @@ $donations = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <?php endif; ?>
 
-</div>
+    </main>
 </div>
 </body>
 </html>

@@ -101,7 +101,7 @@ Public / landing page
 ## 5. Screenshot
 
 | Desktop               | Tablet               |Mobile               |
-| ---------------------- | ---------------------- |
+| ---------------------- | ---------------------- | ---------------------- |
 | ![old](/frontend/readme_assets/landingpage.jpeg) | ![new](/frontend/readme_assets/tablet_landing.jpeg) | ![new](/frontend/readme_assets/mobile_landing.jpeg) |
 
 ---

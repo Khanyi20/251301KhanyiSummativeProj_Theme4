@@ -19,6 +19,13 @@ try {
             PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
         ]
     );
+    $options = [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES => false,
+    PDO::MYSQL_ATTR_SSL_CA => getenv('DB_SSL_CA'),
+    PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => true,
+];
 
 } catch (PDOException $e) {
     error_log('Database connection failed: ' . $e->getMessage());
